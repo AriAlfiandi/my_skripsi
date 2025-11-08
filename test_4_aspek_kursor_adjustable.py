@@ -420,7 +420,7 @@ def generate_targets(mode, img_shape):
 # Main loop variables
 window_name = "Cursor Testing - 4 Aspek (Adjustable Threshold)"
 cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
-cv2.setWindowProperty(window_name, cv2.WND_PROP_TOPMOST, 1) #kamernya selalu didepan wkwk
+cv2.setWindowProperty(window_name, cv2.WND_PROP_TOPMOST, 1) #kamernya selalu didepan
 
 rapid_start_pos = None
 rapid_start_time = None
