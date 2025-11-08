@@ -1,0 +1,899 @@
+================================================================================
+PANDUAN PENGUJIAN SISTEM VIRTUAL MOUSE
+Implementasi Hand Tracking untuk Kontrol Mouse
+================================================================================
+
+PENJELASAN KONSEP PENGUJIAN:
+--------------------------------------------------------------------------------
+
+1. TRUE POSITIVE (TP)
+   - Definisi: Sistem mendeteksi gesture dengan BENAR
+   - Contoh: Anda melakukan scroll up, sistem mendeteksi scroll up
+   - Cara konfirmasi: Tekan tombol 'Y' setelah gesture terdeteksi
+
+2. FALSE POSITIVE (FP)
+   - Definisi: Sistem mendeteksi gesture yang SALAH/tidak ada
+   - Contoh: Anda tidak melakukan apa-apa, tapi sistem mendeteksi scroll
+   - Contoh: Anda melakukan scroll up, tapi sistem mendeteksi click
+   - Cara konfirmasi: Tekan tombol 'N' setelah deteksi yang salah
+
+3. FALSE NEGATIVE (FN)
+   - Definisi: Anda melakukan gesture tapi sistem TIDAK mendeteksi
+   - Contoh: Anda melakukan klik, tapi sistem tidak merespon
+   - Cara konfirmasi: Tekan tombol 'F', lalu pilih gesture yang gagal terdeteksi
+
+================================================================================
+FITUR-FITUR SISTEM:
+================================================================================
+
+KONTROL GESTURE:
+----------------
+1. SCROLL UP
+   - Gesture: Dekatkan jempol dan telunjuk (jarak < 50 pixel)
+   - Indikator: Telunjuk berubah HIJAU
+   - Status: Memerlukan scroll mode aktif
+
+2. SCROLL DOWN
+   - Gesture: Jauhkan jempol dan telunjuk (jarak > 150 pixel)
+   - Indikator: Telunjuk berubah MERAH
+   - Status: Memerlukan scroll mode aktif
+
+3. KLIK
+   - Gesture: Dekatkan jempol dan kelingking (jarak < 30 pixel)
+   - Indikator: Kelingking berubah HIJAU saat klik
+   - Status: Memerlukan gesture aktif
+
+4. TOGGLE SCROLL (Gesture)
+   - Gesture: Kepalan tangan (semua jari dekat ke pergelangan)
+   - Fungsi: Mengaktifkan/menonaktifkan mode scroll
+   - Status: Toggle antara ON/OFF
+
+5. GERAK KURSOR
+   - Gesture: Gerakan jari tengah
+   - Indikator: Jari tengah ditandai bulatan HIJAU besar
+   - Tracking: Otomatis tercatat setiap 1 detik
+   - Status: Selalu aktif (tidak terpengaruh toggle)
+
+KONTROL KEYBOARD:
+-----------------
+Y / y  : Konfirmasi True Positive (deteksi benar)
+N / n  : Konfirmasi False Positive (deteksi salah)
+F / f  : Tambah False Negative (gagal terdeteksi)
+S / s  : Tampilkan statistik pengujian
+R / r  : Reset statistik (akan ada konfirmasi)
+T / t  : Toggle mode Scroll (ON/OFF)
+W / w  : Toggle SEMUA Gesture (Scroll + Klik ON/OFF)
+Q / q  : Keluar dari program
+
+KELUAR DARI PROGRAM (EXIT):
+----------------------------
+Ada 3 cara untuk keluar dari program:
+
+1. GESTURE KEDUA TANGAN TERANGKAT (Direkomendasikan):
+   - Angkat KEDUA tangan dengan semua jari terbuka ke atas
+   - Tahan posisi selama 3 DETIK
+   - Sistem akan otomatis:
+     * Menampilkan statistik akhir
+     * Menyimpan laporan (JSON dan TXT)
+     * Menutup program
+   
+   Tips untuk exit gesture:
+   - Pastikan KEDUA tangan terdeteksi (lihat "Hands: 2" di layar)
+   - Semua ujung jari harus di atas pergelangan tangan
+   - Tahan posisi stabil selama 3 detik
+   - Jangan gerakkan tangan selama menunggu
+
+2. KEYBOARD 'Q':
+   - Tekan tombol 'Q' atau 'q'
+   - Sistem akan langsung keluar dengan menyimpan laporan
+
+3. FORCE CLOSE:
+   - Tutup window kamera secara paksa
+   - Laporan tetap tersimpan otomatis
+
+SISTEM PENGAMAN:
+----------------
+- Gesture Cooldown: 0.5 detik antar gesture (mencegah spam)
+- Deteksi maksimal: 2 tangan (untuk kontrol dan exit)
+- Mode Kontrol: Hanya 1 tangan untuk gesture kontrol
+- Mode Exit: Perlu 2 tangan terangkat sekaligus
+
+INDIKATOR VISUAL DI LAYAR:
+---------------------------
+Baris 1 (Atas):
+- Hands: [jumlah] → Jumlah tangan terdeteksi
+- Gestures: AKTIF ✓ / NONAKTIF ✗ → Status semua gesture
+- Scroll: ON / OFF → Status mode scroll
+- Akurasi: [xx.x%] → Akurasi keseluruhan
+
+Baris 2 (Atas, saat waiting):
+- "Konfirmasi: Y=Benar N=Salah" → Menunggu konfirmasi gesture
+
+Baris 3 (Bawah):
+- "[T]=Scroll | [W]=ON/OFF | Angkat 2 Tangan=Keluar" → Hint kontrol
+
+MARKER VISUAL PADA TANGAN:
+---------------------------
+- Bulatan PINK: Jempol, Telunjuk, Kelingking
+- Bulatan HIJAU BESAR: Jari Tengah (kontrol kursor)
+- Garis PINK: Koneksi antar jari
+- Bulatan HIJAU (Telunjuk): Scroll Up aktif
+- Bulatan MERAH (Telunjuk): Scroll Down aktif
+- Bulatan HIJAU BESAR (Kelingking): Klik terdeteksi
+
+================================================================================
+LANGKAH-LANGKAH PENGUJIAN:
+================================================================================
+
+PERSIAPAN:
+----------
+1. Pastikan webcam terpasang dan berfungsi
+2. Posisikan tangan di depan kamera dengan pencahayaan yang cukup
+3. Jalankan program: python virtual_mouse_with_testing.py
+4. Window "Virtual Mouse dengan Testing" akan terbuka
+5. Pastikan sistem mendeteksi tangan Anda (lihat "Hands: 1" di layar)
+6. Siapkan catatan untuk mendokumentasikan hasil
+
+WARM-UP (5 menit):
+------------------
+Sebelum pengujian formal, lakukan warm-up untuk memahami sistem:
+
+1. Latihan Gerak Kursor (2 menit)
+   - Gerakkan jari tengah, perhatikan kursor mengikuti
+   - Coba berbagai kecepatan dan arah
+   
+2. Latihan Toggle Scroll (1 menit)
+   - Kepalan tangan untuk toggle scroll
+   - Perhatikan indikator "Scroll: ON/OFF"
+   - Tekan 'T' untuk toggle via keyboard
+   
+3. Latihan Scroll (1 menit)
+   - Mode scroll ON: coba dekat-jauhkan jempol-telunjuk
+   - Perhatikan warna indikator (hijau/merah)
+   
+4. Latihan Klik (30 detik)
+   - Dekatkan jempol-kelingking untuk klik
+   
+5. Latihan Exit (30 detik)
+   - Coba angkat kedua tangan sebentar (jangan sampai 3 detik)
+   - Pastikan Anda tahu cara keluar nanti
+
+METODE PENGUJIAN YANG DISARANKAN:
+----------------------------------
+
+METODE 1: Pengujian Terstruktur (Direkomendasikan untuk Skripsi)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Lakukan setiap gesture sebanyak 10-20 kali, konfirmasi setiap deteksi:
+
+a) PENGUJIAN SCROLL UP (10-20 kali)
+   - Pastikan mode scroll aktif (Scroll: ON)
+   - Lakukan gesture scroll up (jempol-telunjuk dekat)
+   - Jika terdeteksi benar → tekan 'Y'
+   - Jika terdeteksi salah → tekan 'N'
+   - Jika tidak terdeteksi → tekan 'F' lalu pilih '1'
+   - Tunggu 0.5 detik antar gesture (cooldown)
+
+b) PENGUJIAN SCROLL DOWN (10-20 kali)
+   - Pastikan mode scroll aktif (Scroll: ON)
+   - Lakukan gesture scroll down (jempol-telunjuk jauh)
+   - Konfirmasi dengan 'Y' atau 'N'
+   - Jika gagal terdeteksi → tekan 'F' lalu pilih '2'
+   - Tunggu cooldown antar gesture
+
+c) PENGUJIAN KLIK (10-20 kali)
+   - Pastikan gesture aktif (Gestures: AKTIF ✓)
+   - Lakukan gesture klik (jempol-kelingking dekat)
+   - Konfirmasi dengan 'Y' atau 'N'
+   - Jika gagal terdeteksi → tekan 'F' lalu pilih '3'
+   - Tunggu cooldown antar gesture
+
+d) PENGUJIAN TOGGLE SCROLL (10-20 kali)
+   - Lakukan gesture kepal tangan
+   - Perhatikan perubahan status "Scroll: ON/OFF"
+   - Konfirmasi dengan 'Y' atau 'N'
+   - Jika gagal terdeteksi → tekan 'F' lalu pilih '4'
+   - Alternatif: gunakan tombol 'T' untuk perbandingan
+
+e) PENGUJIAN GERAK KURSOR (observasi 1-2 menit)
+   - Gerakkan jari tengah bebas
+   - Sistem otomatis track setiap 1 detik
+   - Perhatikan responsivitas kursor
+   - Konfirmasi dengan 'Y' atau 'N'
+   - Tidak perlu manual trigger, sistem auto-detect
+
+f) PENGUJIAN TOGGLE SEMUA GESTURE (5-10 kali)
+   - Tekan tombol 'W' untuk toggle
+   - Coba lakukan scroll/klik saat nonaktif
+   - Pastikan tidak ada gesture yang terdeteksi
+   - Aktifkan kembali dengan 'W'
+   - Konfirmasi fitur berfungsi dengan baik
+
+g) PENGUJIAN EXIT GESTURE (3-5 kali)
+   - Angkat kedua tangan dengan jari terbuka
+   - Tahan KURANG dari 3 detik (jangan sampai exit)
+   - Turunkan tangan sebelum program keluar
+   - Verifikasi sistem mendeteksi kedua tangan
+   - CATATAN: Tes terakhir bisa benar-benar exit
+   - Jika exit, jalankan ulang program untuk lanjut
+
+METODE 2: Pengujian Realistis (Simulasi Penggunaan Nyata)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Gunakan sistem seperti mouse normal selama 5-10 menit:
+- Browse website atau dokumen
+- Scroll halaman dengan gesture
+- Klik link/tombol dengan gesture
+- Toggle scroll saat tidak dibutuhkan (gesture kepalan)
+- Nonaktifkan semua gesture saat istirahat (tombol W)
+- Konfirmasi setiap deteksi secara real-time
+- Catat pengalaman pengguna (UX)
+
+Skenario realistis:
+1. Buka browser
+2. Aktifkan mode scroll (gesture kepalan atau tombol T)
+3. Scroll untuk membaca artikel
+4. Klik link dengan gesture
+5. Nonaktifkan scroll saat tidak perlu
+6. Keluar dengan gesture kedua tangan terangkat
+
+METODE 3: Pengujian Ekstrim (Kondisi Menantang)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Uji sistem dalam kondisi:
+
+1. PENCAHAYAAN BERBEDA
+   - Pencahayaan rendah (redup)
+   - Pencahayaan tinggi (terang)
+   - Backlight (cahaya dari belakang)
+   - Cahaya tidak merata
+
+2. JARAK KAMERA
+   - Jarak dekat (20-30 cm)
+   - Jarak normal (40-50 cm)
+   - Jarak jauh (60-80 cm)
+
+3. KECEPATAN GERAKAN
+   - Gerakan sangat lambat
+   - Gerakan normal
+   - Gerakan cepat
+   - Gerakan tiba-tiba
+
+4. LATAR BELAKANG
+   - Latar polos (dinding putih)
+   - Latar kompleks (rak buku, poster)
+   - Latar dengan gerakan (orang lewat)
+
+5. KONDISI KHUSUS
+   - Posisi tangan miring
+   - Tangan berkeringat
+   - Menggunakan tangan kiri vs kanan
+   - Dengan aksesoris (jam tangan, gelang)
+
+METODE 4: Pengujian Fitur Khusus
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Fokus pada fitur-fitur spesifik:
+
+a) STRESS TEST COOLDOWN
+   - Coba lakukan gesture sangat cepat berturut-turut
+   - Verifikasi cooldown 0.5 detik berfungsi
+   - Hitung berapa gesture yang ter-skip
+
+b) TEST TOGGLE MODES
+   - Scroll ON → coba semua gesture
+   - Scroll OFF → coba scroll (harus gagal)
+   - Gestures OFF → coba semua (harus gagal)
+   - Gestures ON → coba semua (harus berhasil)
+
+c) TEST MULTI-HAND DETECTION
+   - Tangan 0: Tidak ada deteksi kursor
+   - Tangan 1: Normal operation
+   - Tangan 2: Masih bisa gerak kursor, siap exit
+   - Kedua tangan terangkat: Exit trigger
+
+d) TEST STATISTIK & RESET
+   - Lakukan beberapa gesture
+   - Tekan 'S' untuk lihat stats
+   - Tekan 'R' untuk reset
+   - Verifikasi data kembali ke 0
+
+================================================================================
+CONTOH SKENARIO PENGUJIAN:
+================================================================================
+
+SKENARIO 1: Pengujian 100 Gesture (Recommended)
+------------------------------------------------
+Target: Pengujian komprehensif untuk skripsi
+
+- 20 kali Scroll Up
+- 20 kali Scroll Down  
+- 20 kali Klik
+- 20 kali Toggle Scroll
+- 20 kali Gerak Kursor
+
+Durasi estimasi: 10-15 menit
+Target akurasi minimal: 80%
+
+Langkah:
+1. Jalankan program
+2. Warm-up 5 menit
+3. Test per gesture sesuai urutan
+4. Konfirmasi setiap deteksi (Y/N/F)
+5. Tekan 'S' untuk cek progress
+6. Exit dengan kedua tangan terangkat
+
+SKENARIO 2: Pengujian Intensif (300 Gesture)
+---------------------------------------------
+Target: Data statistik robust untuk analisis mendalam
+
+- 60 kali Scroll Up
+- 60 kali Scroll Down
+- 60 kali Klik
+- 60 kali Toggle Scroll
+- 60 kali Gerak Kursor
+
+Durasi estimasi: 30-45 menit
+Target akurasi minimal: 85%
+
+Tips:
+- Bagi menjadi 3 sesi (100 gesture per sesi)
+- Istirahat 5 menit antar sesi
+- Gunakan tombol 'W' untuk pause gesture saat istirahat
+- Tekan 'S' setiap akhir sesi untuk monitoring
+
+SKENARIO 3: Pengujian Komparatif (Kondisi Berbeda)
+---------------------------------------------------
+Target: Analisis pengaruh faktor eksternal
+
+Set A - Kondisi Ideal (50 gesture):
+- Pencahayaan bagus
+- Jarak optimal (40-50 cm)
+- Latar polos
+
+Set B - Kondisi Challenging (50 gesture):
+- Pencahayaan redup
+- Jarak bervariasi
+- Latar kompleks
+
+Durasi: 15-20 menit
+Analisis: Bandingkan akurasi Set A vs Set B
+
+SKENARIO 4: Pengujian User Experience (UX)
+-------------------------------------------
+Target: Evaluasi kemudahan penggunaan
+
+Task 1: Web Browsing (5 menit)
+- Buka website berita
+- Scroll artikel dengan gesture
+- Klik 5 link berbeda
+- Toggle scroll saat tidak perlu
+
+Task 2: Document Editing (5 menit)
+- Buka dokumen Word/PDF
+- Scroll untuk membaca
+- Nonaktifkan gesture saat mengetik
+- Aktifkan kembali untuk navigasi
+
+Task 3: Presentasi (3 menit)
+- Simulasi kontrol presentasi
+- Gunakan gesture untuk navigasi slide
+- Exit dengan gesture kedua tangan
+
+Evaluasi:
+- Kenyamanan pengguna
+- Kelelahan tangan
+- Intuitif atau tidak
+- Bandingkan dengan mouse biasa
+
+================================================================================
+TIPS MENDAPATKAN HASIL TERBAIK:
+================================================================================
+
+1. PENCAHAYAAN
+   - Gunakan pencahayaan yang cukup dan merata
+   - Hindari backlight (cahaya dari belakang)
+   - Cahaya dari depan atau samping lebih baik
+   - Pencahayaan natural (siang hari) ideal
+
+2. POSISI TANGAN
+   - Jarak ideal: 40-50 cm dari kamera
+   - Pastikan seluruh tangan terlihat di frame
+   - Latar belakang polos lebih baik
+   - Jari tengah harus jelas terlihat (kontrol kursor)
+
+3. GERAKAN
+   - Lakukan gerakan dengan jelas dan konsisten
+   - Tunggu cooldown (0.5 detik) antar gesture
+   - Jangan terburu-buru
+   - Gerakan mantap lebih baik dari gerakan cepat
+
+4. KONFIRMASI
+   - Segera konfirmasi setelah deteksi (tekan Y/N)
+   - Jika ragu, lebih baik tekan 'N' (lebih objektif)
+   - Catat kondisi saat terjadi error
+   - Konsisten dalam penilaian
+
+5. EXIT YANG BENAR
+   - Untuk exit normal: Angkat KEDUA tangan
+   - Semua jari terbuka ke atas
+   - Tahan STABIL selama 3 detik
+   - Jangan gerak saat menunggu countdown
+   - Alternatif cepat: tekan 'Q'
+
+6. MANAJEMEN MODE
+   - Gunakan 'W' untuk nonaktifkan gesture saat istirahat
+   - Gunakan 'T' untuk toggle scroll dengan cepat
+   - Monitor status di layar sebelum test
+   - Scroll mode OFF = scroll gesture tidak berfungsi
+
+7. MONITORING PROGRESS
+   - Tekan 'S' secara berkala untuk cek statistik
+   - Monitor akurasi real-time di layar
+   - Catat gesture yang sering error
+   - Sesuaikan teknik jika perlu
+
+8. KONSISTENSI PENGUJIAN
+   - Gunakan tangan yang sama
+   - Posisi duduk yang sama
+   - Pencahayaan yang sama
+   - Waktu yang sama (jika multi sesi)
+
+================================================================================
+INTERPRETASI HASIL:
+================================================================================
+
+KATEGORI AKURASI:
+-----------------
+AKURASI > 90%  : Sangat Baik (Excellent) ⭐⭐⭐⭐⭐
+AKURASI 80-90% : Baik (Good) ⭐⭐⭐⭐
+AKURASI 70-80% : Cukup (Fair) ⭐⭐⭐
+AKURASI 60-70% : Kurang (Poor) ⭐⭐
+AKURASI < 60%  : Perlu Perbaikan (Needs Improvement) ⭐
+
+ANALISIS KESALAHAN:
+-------------------
+
+Jika False Positive tinggi (> 15%):
+✗ Masalah: Sistem terlalu sensitif
+✓ Solusi:
+  - Tingkatkan gesture_cooldown (0.5 → 1.0 detik)
+  - Ubah threshold jarak (50→40 untuk scroll up, 150→160 untuk scroll down)
+  - Tambah validasi orientasi jari
+  - Kurangi detectionCon (0.3 → 0.5)
+
+Jika False Negative tinggi (> 15%):
+✗ Masalah: Sistem terlalu ketat/kurang responsif
+✓ Solusi:
+  - Kurangi gesture_cooldown (0.5 → 0.3 detik)
+  - Ubah threshold jarak (50→60 untuk scroll up, 150→140 untuk scroll down)
+  - Tingkatkan detectionCon (0.3 → 0.2)
+  - Perbaiki pencahayaan
+  - Periksa posisi tangan (jarak optimal)
+
+Jika Akurasi Gesture Berbeda Signifikan:
+- Scroll lebih akurat dari Klik → Jarak gesture lebih mudah dideteksi
+- Klik lebih akurat dari Scroll → Presisi tangan pengguna baik
+- Toggle tidak stabil → Deteksi kepalan perlu perbaikan
+- Move Cursor rendah → Tracking jari tengah perlu optimasi
+
+ANALISIS PER GESTURE:
+----------------------
+
+SCROLL UP/DOWN:
+- TP tinggi: Threshold jarak tepat
+- FP tinggi: Gerakan tidak disengaja terdeteksi
+- FN tinggi: Gerakan terlalu cepat atau ambiguous
+
+KLIK:
+- TP tinggi: Presisi gerakan baik
+- FP tinggi: Jempol-kelingking terlalu dekat saat normal
+- FN tinggi: Threshold 30 pixel terlalu ketat
+
+TOGGLE SCROLL:
+- TP tinggi: Deteksi kepalan baik
+- FP tinggi: Tangan tertutup tidak disengaja
+- FN tinggi: Kepalan tidak sempurna (jari tidak cukup dekat)
+
+MOVE CURSOR:
+- TP tinggi: Tracking stabil
+- FP tinggi: (jarang terjadi, auto-detect)
+- FN tinggi: Jari tengah tidak terdeteksi (pencahayaan?)
+
+================================================================================
+FORMAT UNTUK SKRIPSI:
+================================================================================
+
+Berikut format tabel yang bisa Anda gunakan di BAB IV (Hasil dan Pembahasan):
+
+---
+
+Tabel X.1. Hasil Pengujian Sistem Virtual Mouse
+
++-------------------+----------+-------+-------+-------+----------+
+| Jenis Gesture     | Detected |  TP   |  FP   |  FN   | Akurasi  |
++-------------------+----------+-------+-------+-------+----------+
+| Scroll Up         |    20    |  18   |   2   |   1   |  85.71%  |
+| Scroll Down       |    20    |  19   |   1   |   0   |  95.00%  |
+| Klik              |    20    |  17   |   3   |   2   |  77.27%  |
+| Toggle Scroll     |    20    |  19   |   1   |   1   |  90.48%  |
+| Gerak Kursor      |    60    |  58   |   2   |   3   |  91.34%  |
++-------------------+----------+-------+-------+-------+----------+
+| TOTAL             |   140    | 131   |   9   |   7   |  89.12%  |
++-------------------+----------+-------+-------+-------+----------+
+
+Keterangan:
+- Detected: Total gesture yang terdeteksi sistem
+- TP (True Positive): Deteksi benar
+- FP (False Positive): Deteksi salah
+- FN (False Negative): Gagal mendeteksi
+- Akurasi: (TP / (TP + FP + FN)) × 100%
+
+---
+
+Tabel X.2. Perbandingan Akurasi Per Gesture
+
++-------------------+----------+----------+----------+
+| Jenis Gesture     | Akurasi  | Kategori | Rating   |
++-------------------+----------+----------+----------+
+| Scroll Down       |  95.00%  | Excellent| ⭐⭐⭐⭐⭐  |
+| Gerak Kursor      |  91.34%  | Excellent| ⭐⭐⭐⭐⭐  |
+| Toggle Scroll     |  90.48%  | Excellent| ⭐⭐⭐⭐⭐  |
+| Scroll Up         |  85.71%  | Good     | ⭐⭐⭐⭐   |
+| Klik              |  77.27%  | Fair     | ⭐⭐⭐    |
++-------------------+----------+----------+----------+
+
+---
+
+Tabel X.3. Analisis Kesalahan Per Jenis
+
++-------------------+--------+--------+--------+
+| Jenis Gesture     | TP (%) | FP (%) | FN (%) |
++-------------------+--------+--------+--------+
+| Scroll Up         | 85.71  |  9.52  |  4.76  |
+| Scroll Down       | 95.00  |  5.00  |  0.00  |
+| Klik              | 77.27  | 13.64  |  9.09  |
+| Toggle Scroll     | 90.48  |  4.76  |  4.76  |
+| Gerak Kursor      | 91.34  |  3.17  |  4.76  |
++-------------------+--------+--------+--------+
+
+---
+
+PEMBAHASAN (Template):
+
+Berdasarkan hasil pengujian terhadap 140 gesture, sistem virtual mouse
+mencapai akurasi keseluruhan sebesar 89.12%, yang termasuk dalam kategori
+"Baik" (Good). 
+
+Gesture dengan akurasi tertinggi adalah Scroll Down (95.00%), diikuti oleh
+Gerak Kursor (91.34%) dan Toggle Scroll (90.48%). Ketiga gesture ini mencapai
+kategori "Sangat Baik" (Excellent). Hal ini menunjukkan bahwa sistem bekerja
+dengan sangat baik dalam mendeteksi gerakan dengan perbedaan jarak yang
+signifikan (Scroll Down) dan tracking kontinyu (Gerak Kursor).
+
+Scroll Up memiliki akurasi 85.71% (kategori "Baik"), sedikit lebih rendah
+dari Scroll Down. Perbedaan ini kemungkinan disebabkan oleh threshold jarak
+yang lebih sensitif untuk deteksi mendekat dibanding menjauh.
+
+Klik memiliki akurasi terendah yaitu 77.27% (kategori "Cukup"), dengan
+False Positive 13.64% dan False Negative 9.09%. Hal ini menunjukkan bahwa
+gesture Klik memerlukan presisi tinggi dalam mendekatkan jempol dan 
+kelingking. Deteksi ini lebih menantang karena threshold 30 pixel cukup
+ketat dan rentan terhadap gerakan tidak disengaja.
+
+Dari segi kesalahan, total False Positive (9 kejadian, 6.43%) lebih tinggi
+dari False Negative (7 kejadian, 5.00%), mengindikasikan sistem cenderung
+over-detecting dibanding under-detecting. Ini menunjukkan threshold deteksi
+bisa ditingkatkan untuk mengurangi deteksi palsu.
+
+Secara keseluruhan, sistem virtual mouse telah mencapai tingkat akurasi yang
+baik untuk aplikasi praktis, dengan ruang perbaikan pada gesture Klik yang
+memerlukan optimasi threshold atau metode deteksi alternatif.
+
+---
+
+STRUKTUR BAB IV (Saran):
+
+4.1 Hasil Pengujian
+    4.1.1 Deskripsi Umum Pengujian
+    4.1.2 Hasil Akurasi Per Gesture
+    4.1.3 Analisis Statistik
+    
+4.2 Pembahasan
+    4.2.1 Analisis Performa Sistem
+    4.2.2 Analisis Kesalahan (Error Analysis)
+    4.2.3 Faktor-faktor yang Mempengaruhi Akurasi
+    4.2.4 Perbandingan dengan Penelitian Terkait
+    
+4.3 Evaluasi User Experience (Opsional)
+    4.3.1 Kemudahan Penggunaan
+    4.3.2 Kenyamanan Gesture
+    4.3.3 Kelebihan dan Kekurangan Sistem
+    
+4.4 Limitasi Sistem
+    4.4.1 Keterbatasan Hardware
+    4.4.2 Keterbatasan Algoritma
+    4.4.3 Kondisi Lingkungan
+
+================================================================================
+TROUBLESHOOTING:
+================================================================================
+
+MASALAH: Kamera tidak terdeteksi
+SOLUSI: 
+- Pastikan webcam terhubung dengan benar
+- Coba ganti cap = cv2.VideoCapture(0) menjadi VideoCapture(1) atau (2)
+- Periksa permission kamera di sistem operasi
+- Test kamera dengan aplikasi lain (Zoom, Skype)
+- Restart program dan komputer
+
+MASALAH: Deteksi tangan tidak stabil
+SOLUSI:
+- Periksa pencahayaan (harus cukup terang dan merata)
+- Atur detectionCon di kode (coba 0.5 atau 0.7)
+- Pastikan latar belakang tidak terlalu kompleks
+- Pastikan seluruh tangan di dalam frame
+- Hindari gerakan terlalu cepat
+
+MASALAH: Mouse bergerak terlalu cepat/lambat
+SOLUSI:
+- Mouse mengikuti jari tengah, bukan telunjuk
+- Sesuaikan resolusi kamera (turunkan jika terlalu cepat)
+- Tambah smoothing pada pergerakan mouse
+- Ubah mapping koordinat di kode
+- Sesuaikan sensitivity mouse di sistem operasi
+
+MASALAH: Terlalu banyak False Positive
+SOLUSI:
+- Tingkatkan gesture_cooldown (coba 1.0 atau 1.5 detik)
+- Ubah threshold jarak:
+  * Scroll Up: 50 → 40 pixel
+  * Scroll Down: 150 → 160 pixel
+  * Klik: 30 → 25 pixel
+- Tambah validasi gesture (cek orientasi jari)
+- Kurangi sensitivity detectionCon
+
+MASALAH: Gesture tidak terdeteksi (FN tinggi)
+SOLUSI:
+- Pastikan Gestures: AKTIF ✓ (bukan NONAKTIF)
+- Pastikan Scroll: ON (untuk scroll gesture)
+- Perhatikan cooldown (tunggu 0.5 detik antar gesture)
+- Lakukan gesture dengan jelas dan mantap
+- Tingkatkan pencahayaan
+- Posisikan tangan pada jarak optimal (40-50 cm)
+
+MASALAH: Scroll tidak berfungsi
+SOLUSI:
+- Periksa status "Scroll: ON/OFF" di layar
+- Toggle dengan gesture kepalan tangan
+- Toggle dengan tombol 'T'
+- Periksa apakah "Gestures: AKTIF"
+- Restart program jika masih bermasalah
+
+MASALAH: Exit dengan kedua tangan tidak berfungsi
+SOLUSI:
+- Pastikan KEDUA tangan terdeteksi (lihat "Hands: 2")
+- Angkat SEMUA jari ke atas (jari harus di atas pergelangan)
+- Tahan posisi STABIL selama 3 detik penuh
+- Jangan gerakkan tangan sama sekali saat menunggu
+- Alternatif: tekan 'Q' untuk exit langsung
+- Cek maxHands=2 di kode (harus 2, bukan 1)
+
+MASALAH: Program keluar tiba-tiba
+SOLUSI:
+- Mungkin tidak sengaja mengangkat kedua tangan
+- Hindari gerakan dengan dua tangan
+- Gunakan hanya 1 tangan untuk kontrol
+- Jika sering terjadi, ubah BOTH_HANDS_RAISED_DURATION menjadi 5.0
+
+MASALAH: Konfirmasi Y/N tidak berfungsi
+SOLUSI:
+- Pastikan window OpenCV aktif (klik window kamera)
+- Tekan tombol saat muncul "Konfirmasi: Y=Benar N=Salah"
+- Gunakan huruf kapital atau kecil (Y/y, N/n)
+- Jika terminal fokus, klik window kamera lagi
+
+MASALAH: Statistik tidak muncul
+SOLUSI:
+- Tekan 'S' untuk menampilkan statistik
+- Statistik otomatis muncul saat exit
+- Periksa terminal/console untuk output
+- Statistik tersimpan di laporan_pengujian.txt
+
+MASALAH: Laporan tidak tersimpan
+SOLUSI:
+- Pastikan exit dengan benar (Q atau kedua tangan terangkat)
+- Periksa folder program untuk file:
+  * laporan_pengujian.json
+  * laporan_pengujian.txt
+- Check permission folder (harus bisa write)
+- Lihat error message di terminal
+
+MASALAH: Akurasi sangat rendah (< 50%)
+SOLUSI:
+- Periksa pencahayaan (mungkin terlalu gelap)
+- Periksa posisi tangan (jarak tidak optimal)
+- Lakukan warm-up lebih lama (10-15 menit)
+- Baca panduan gesture dengan teliti
+- Gunakan tangan yang lebih stabil
+- Pastikan memahami cara konfirmasi TP/FP/FN
+- Cek apakah konfirmasi konsisten
+
+MASALAH: Cooldown terlalu lama/pendek
+SOLUSI:
+- Edit gesture_cooldown di kode:
+  * Terlalu lama: 0.5 → 0.3 detik
+  * Terlalu pendek: 0.5 → 0.8 detik
+- Sesuaikan dengan kecepatan gesture Anda
+- Untuk pengujian cepat: gunakan 0.3
+- Untuk pengujian akurat: gunakan 0.8
+
+================================================================================
+CHECKLIST SEBELUM PENGUJIAN:
+================================================================================
+
+HARDWARE:
+☐ Webcam terhubung dan berfungsi
+☐ Pencahayaan cukup dan merata
+☐ Latar belakang relatif polos
+☐ Posisi duduk nyaman untuk 30+ menit
+
+SOFTWARE:
+☐ Python terinstall dengan benar
+☐ Library lengkap (cvzone, cv2, pynput, screeninfo)
+☐ Program dapat dijalankan tanpa error
+☐ Window "Virtual Mouse dengan Testing" muncul
+☐ Deteksi tangan berfungsi (muncul marker di tangan)
+
+PERSIAPAN:
+☐ Sudah membaca seluruh panduan ini
+☐ Sudah melakukan warm-up 5 menit
+☐ Memahami setiap gesture
+☐ Memahami cara konfirmasi (Y/N/F)
+☐ Memahami cara exit (kedua tangan atau Q)
+☐ Siap catatan untuk dokumentasi
+☐ Timer/stopwatch untuk tracking durasi
+
+MENTAL READINESS:
+☐ Fokus dan tidak terganggu
+☐ Tidak terburu-buru
+☐ Siap untuk pengujian 15-45 menit
+☐ Konsisten dalam penilaian
+☐ Objektif (tidak bias)
+
+================================================================================
+LEMBAR DOKUMENTASI (Template):
+================================================================================
+
+INFORMASI UMUM:
+--------------
+Tanggal Pengujian    : [___/___/______]
+Waktu Mulai          : [___:___]
+Waktu Selesai        : [___:___]
+Durasi Total         : [___] menit
+Nama Penguji         : [________________]
+
+SPESIFIKASI HARDWARE:
+--------------------
+Tipe Kamera          : [________________]
+Resolusi Kamera      : [________________]
+Prosesor             : [________________]
+RAM                  : [________________]
+Sistem Operasi       : [________________]
+
+KONDISI PENGUJIAN:
+-----------------
+Pencahayaan          : ☐ Rendah  ☐ Sedang  ☐ Tinggi
+Latar Belakang       : ☐ Polos   ☐ Kompleks
+Jarak dari Kamera    : [___] cm
+Tangan yang Digunakan: ☐ Kanan   ☐ Kiri
+Kondisi Tangan       : ☐ Normal  ☐ Berkeringat  ☐ Dengan aksesoris
+
+TARGET PENGUJIAN:
+----------------
+Total Gesture Target : [___] gesture
+☐ Scroll Up          : [___] kali
+☐ Scroll Down        : [___] kali
+☐ Klik               : [___] kali
+☐ Toggle Scroll      : [___] kali
+☐ Gerak Kursor       : [___] detik
+
+HASIL AKHIR:
+-----------
+Akurasi Keseluruhan  : [___.__%]
+Kategori             : [________]
+Total TP             : [___]
+Total FP             : [___]
+Total FN             : [___]
+
+CATATAN & OBSERVASI:
+-------------------
+[Tulis pengalaman, kesulitan, dan hal menarik selama pengujian]
+
+
+
+
+
+
+
+
+
+REKOMENDASI PERBAIKAN:
+---------------------
+[Tulis saran untuk meningkatkan akurasi sistem]
+
+
+
+
+
+
+
+
+
+================================================================================
+KONTAK & SUPPORT:
+================================================================================
+
+UNTUK MASALAH TEKNIS:
+Dokumentasikan hal berikut:
+1. Versi Python (python --version)
+2. Versi library (pip list | grep -E "opencv|cvzone|pynput")
+3. Spesifikasi kamera (resolusi, fps, vendor)
+4. Screenshot atau video error
+5. File log (laporan_pengujian.json)
+6. Pesan error lengkap
+
+UNTUK SKRIPSI:
+Pastikan menyertakan:
+1. Metodologi pengujian yang digunakan (Metode 1/2/3/4)
+2. Kondisi lingkungan pengujian (pencahayaan, jarak, dll)
+3. Spesifikasi hardware lengkap
+4. Analisis mendalam dari hasil
+5. Perbandingan dengan penelitian terkait
+6. Dokumentasi lengkap (foto, video, screenshot)
+7. File laporan (JSON dan TXT)
+8. Tabel hasil sesuai format di atas
+
+TIPS TAMBAHAN UNTUK SKRIPSI:
+1. Lakukan pengujian minimal 2 kali untuk validasi
+2. Gunakan partisipan berbeda jika memungkinkan
+3. Dokumentasikan setiap langkah dengan foto/video
+4. Buat grafik visualisasi dari data (bar chart, pie chart)
+5. Analisis faktor-faktor yang mempengaruhi akurasi
+6. Bandingkan dengan sistem serupa (jika ada)
+7. Diskusikan limitasi dan future work
+
+================================================================================
+SELAMAT MENGUJI! SEMOGA SKRIPSI ANDA SUKSES!
+================================================================================
+
+QUICK REFERENCE CARD:
+=====================
+
+KEYBOARD SHORTCUTS:
+Y/y - True Positive      | S/s - Show Stats
+N/n - False Positive     | R/r - Reset Stats
+F/f - False Negative     | T/t - Toggle Scroll
+W/w - Toggle All         | Q/q - Quit Program
+
+GESTURE CONTROLS:
+Scroll Up      : Jempol-Telunjuk Dekat (< 50px)
+Scroll Down    : Jempol-Telunjuk Jauh (> 150px)
+Klik           : Jempol-Kelingking Dekat (< 30px)
+Toggle Scroll  : Kepalan Tangan
+Exit Program   : Angkat Kedua Tangan 3 Detik
+
+COOLDOWN: 0.5 detik antar gesture
+
+TROUBLESHOOT CEPAT:
+Scroll tidak jalan? → Cek "Scroll: ON", tekan T
+Klik tidak jalan?   → Cek "Gestures: AKTIF", tekan W
+Tidak bisa exit?    → Tekan Q
+Tidak terdeteksi?   → Periksa pencahayaan & jarak
+
+FILE OUTPUT:
+- laporan_pengujian.json (data mentah)
+- laporan_pengujian.txt (untuk skripsi)
+
+KONTAK DARURAT: [tambahkan kontak Anda]
+
+================================================================================
+VERSION: 2.0 - Updated dengan semua fitur program
+LAST UPDATE: 2025
+================================================================================

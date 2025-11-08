@@ -1,0 +1,8 @@
+opencv-python>=4.5.0
+cvzone>=1.5.0
+mediapipe>=0.8.0
+pynput>=1.7.0
+screeninfo>=0.6.0
+matplotlib>=3.3.0
+numpy>=1.19.0
+python-docx>=0.8.11

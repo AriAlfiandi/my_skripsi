@@ -1,0 +1,89 @@
+================================================================================
+LAPORAN PENGUJIAN SISTEM VIRTUAL MOUSE
+Implementasi Hand Tracking untuk Kontrol Mouse
+================================================================================
+
+Waktu Pengujian: 06 November 2025, 14:12:13
+Durasi: 2.82 menit
+
+HASIL PENGUJIAN PER GESTURE:
+--------------------------------------------------------------------------------
+
+SCROLL UP:
+  Total Deteksi       : 8
+  True Positive (TP)  : 0
+  False Positive (FP) : 0
+  False Negative (FN) : 0
+  Tingkat Akurasi     : 0.00%
+  Response Time:
+    - Rata-rata       : 69.10 ms
+    - Minimum         : 47.78 ms
+    - Maximum         : 90.00 ms
+    - Jumlah Sample   : 8
+
+SCROLL DOWN:
+  Total Deteksi       : 5
+  True Positive (TP)  : 0
+  False Positive (FP) : 0
+  False Negative (FN) : 0
+  Tingkat Akurasi     : 0.00%
+  Response Time:
+    - Rata-rata       : 60.59 ms
+    - Minimum         : 48.00 ms
+    - Maximum         : 78.97 ms
+    - Jumlah Sample   : 5
+
+CLICK:
+  Total Deteksi       : 3
+  True Positive (TP)  : 0
+  False Positive (FP) : 0
+  False Negative (FN) : 0
+  Tingkat Akurasi     : 0.00%
+  Response Time:
+    - Rata-rata       : 58.01 ms
+    - Minimum         : 51.00 ms
+    - Maximum         : 64.00 ms
+    - Jumlah Sample   : 3
+
+TOGGLE SCROLL:
+  Total Deteksi       : 0
+  True Positive (TP)  : 0
+  False Positive (FP) : 0
+  False Negative (FN) : 0
+  Tingkat Akurasi     : 0.00%
+  Response Time:
+    - Rata-rata       : 0.00 ms
+    - Minimum         : 0.00 ms
+    - Maximum         : 0.00 ms
+    - Jumlah Sample   : 0
+
+MOVE CURSOR:
+  Total Deteksi       : 67
+  True Positive (TP)  : 0
+  False Positive (FP) : 0
+  False Negative (FN) : 0
+  Tingkat Akurasi     : 0.00%
+  Response Time:
+    - Rata-rata       : 67.31 ms
+    - Minimum         : 29.00 ms
+    - Maximum         : 124.00 ms
+    - Jumlah Sample   : 67
+
+================================================================================
+RINGKASAN KESELURUHAN:
+--------------------------------------------------------------------------------
+Total True Positive  : 0
+Total False Positive : 0
+Total False Negative : 0
+AKURASI SISTEM       : 0.00%
+RESPONSE TIME RATA-RATA : 66.74 ms
+FRAME PROCESSING TIME   : 69.99 ms
+================================================================================
+
+ANALISIS:
+--------------------------------------------------------------------------------
+Sistem perlu PERBAIKAN dengan akurasi di bawah 70%.
+
+Gesture dengan response time terbaik:
+  - Click: 58.01 ms
+

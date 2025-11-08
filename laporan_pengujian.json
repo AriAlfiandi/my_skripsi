@@ -1,0 +1,74 @@
+{
+    "waktu_pengujian": "2025-11-06 14:12:13",
+    "durasi_detik": 168.98766922950745,
+    "akurasi_keseluruhan": 0.0,
+    "response_time_rata_rata_ms": 66.74026581178228,
+    "frame_processing_time_ms": 69.98936946575458,
+    "detail_gesture": {
+        "scroll_up": {
+            "detected": 8,
+            "true_positive": 0,
+            "false_positive": 0,
+            "false_negative": 0,
+            "akurasi": 0.0,
+            "response_time": {
+                "rata_rata_ms": 69.1005289554596,
+                "min_ms": 47.78313636779785,
+                "max_ms": 90.00325202941895,
+                "jumlah_sample": 8
+            }
+        },
+        "scroll_down": {
+            "detected": 5,
+            "true_positive": 0,
+            "false_positive": 0,
+            "false_negative": 0,
+            "akurasi": 0.0,
+            "response_time": {
+                "rata_rata_ms": 60.59165000915527,
+                "min_ms": 48.00057411193848,
+                "max_ms": 78.9651870727539,
+                "jumlah_sample": 5
+            }
+        },
+        "click": {
+            "detected": 3,
+            "true_positive": 0,
+            "false_positive": 0,
+            "false_negative": 0,
+            "akurasi": 0.0,
+            "response_time": {
+                "rata_rata_ms": 58.011372884114586,
+                "min_ms": 51.001787185668945,
+                "max_ms": 63.99726867675781,
+                "jumlah_sample": 3
+            }
+        },
+        "toggle_scroll": {
+            "detected": 0,
+            "true_positive": 0,
+            "false_positive": 0,
+            "false_negative": 0,
+            "akurasi": 0.0,
+            "response_time": {
+                "rata_rata_ms": 0.0,
+                "min_ms": 0.0,
+                "max_ms": 0.0,
+                "jumlah_sample": 0
+            }
+        },
+        "move_cursor": {
+            "detected": 67,
+            "true_positive": 0,
+            "false_positive": 0,
+            "false_negative": 0,
+            "akurasi": 0.0,
+            "response_time": {
+                "rata_rata_ms": 67.3081412244199,
+                "min_ms": 29.001951217651367,
+                "max_ms": 123.99744987487793,
+                "jumlah_sample": 67
+            }
+        }
+    }
+}

@@ -1,0 +1,59 @@
+================================================================================
+LAPORAN PENGUJIAN KONTROL KURSOR - LENGKAP
+Sistem Virtual Mouse dengan Hand Tracking
+================================================================================
+
+Waktu Pengujian: 07 November 2025, 23:13:12
+
+KONFIGURASI THRESHOLD:
+  - Rapid Movement Time     : < 1000 ms
+  - Rapid Movement Distance : > 200 px
+  - Precision Hit Radius    : < 30 px
+  - Edge Detection Range    : < 50 px
+
+================================================================================
+1. PRECISION POINTING (Target Kecil di Layar)
+================================================================================
+
+Belum ada data pengujian.
+
+================================================================================
+2. CURSOR SMOOTHNESS (Gerakan Halus)
+================================================================================
+
+Belum ada data pengujian.
+
+================================================================================
+3. EDGE DETECTION (Batas Layar)
+================================================================================
+
+Belum ada data pengujian.
+
+================================================================================
+4. RAPID MOVEMENT (Gerakan Cepat)
+================================================================================
+
+Belum ada data pengujian.
+
+================================================================================
+TABEL UNTUK SKRIPSI
+================================================================================
+
+Aspek Pengujian | Jumlah Tes | Akurasi (%) | Latency (ms) | Smoothness Score | Keterangan
+--------------------------------------------------------------------------------
+Precision Pointing | 0 titik | - | - | - | Belum diuji
+Cursor Smoothness | 0x | - | - | - | Belum diuji
+Edge Detection | 0 titik | - | - | - | Belum diuji
+Rapid Movement | 0 titik | - | - | - | Belum diuji
+
+================================================================================
+
+CATATAN UNTUK SKRIPSI:
+--------------------------------------------------------------------------------
+Threshold Rapid Movement (1000ms) dipilih berdasarkan:
+1. Karakteristik sistem hand tracking berbasis webcam
+2. Latency deteksi hand landmarks (30-60ms per frame)
+3. Balance antara challenging dan achievable untuk user
+4. Literatur research pada sistem hand tracking serupa
+5. Definisi 'rapid' yang relatif terhadap teknologi yang digunakan
+

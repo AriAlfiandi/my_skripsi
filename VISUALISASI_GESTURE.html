@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panduan Gesture - Virtual Mouse</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #f0f0f0;
+            margin-bottom: 40px;
+            font-size: 1.2em;
+        }
+        
+        .gesture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .gesture-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .gesture-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .gesture-title {
+            font-size: 1.8em;
+            color: #667eea;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .gesture-visual {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border: 3px solid #667eea;
+        }
+        
+        .hand-diagram {
+            font-size: 120px;
+            text-align: center;
+        }
+        
+        .gesture-description {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .gesture-description h3 {
+            color: #856404;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .gesture-description p {
+            color: #856404;
+            line-height: 1.6;
+            font-size: 1em;
+        }
+        
+        .gesture-description ul {
+            margin-left: 20px;
+            margin-top: 10px;
+            color: #856404;
+        }
+        
+        .gesture-description li {
+            margin: 5px 0;
+        }
+        
+        .action-label {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-top: 15px;
+        }
+        
+        .finger-labels {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .finger-label {
+            text-align: center;
+        }
+        
+        .finger-label strong {
+            display: block;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .important-note {
+            background: #d1ecf1;
+            border: 2px solid #17a2b8;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .important-note h2 {
+            color: #0c5460;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        .important-note ul {
+            color: #0c5460;
+            margin-left: 25px;
+            line-height: 1.8;
+        }
+        
+        .svg-container {
+            width: 100%;
+            height: 250px;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        .emoji-large {
+            font-size: 100px;
+            display: block;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .gesture-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .gesture-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🖐️ PANDUAN GESTURE VIRTUAL MOUSE</h1>
+        <p class="subtitle">Visualisasi Lengkap Semua Gesture Tangan</p>
+        
+        <div class="gesture-grid">
+            <!-- GESTURE 1: KLIK -->
+            <div class="gesture-card">
+                <div class="gesture-title">👆 GESTURE KLIK</div>
+                <div class="gesture-visual">
+                    <svg width="200" height="220" viewBox="0 0 200 220">
+                        <!-- Telapak tangan -->
+                        <ellipse cx="100" cy="150" rx="50" ry="70" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Jari kelingking (merah - target) -->
+                        <rect x="145" y="90" width="15" height="80" rx="7" fill="#ff6b6b" stroke="#333" stroke-width="2"/>
+                        <circle cx="152" cy="85" r="10" fill="#ff6b6b" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Jari manis -->
+                        <rect x="125" y="70" width="15" height="100" rx="7" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        <circle cx="132" cy="65" r="10" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Jari tengah -->
+                        <rect x="105" y="60" width="15" height="110" rx="7" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        <circle cx="112" cy="55" r="10" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Jari telunjuk -->
+                        <rect x="85" y="70" width="15" height="100" rx="7" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        <circle cx="92" cy="65" r="10" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Jempol (biru - bergerak) -->
+                        <rect x="45" y="120" width="20" height="60" rx="10" fill="#4ecdc4" stroke="#333" stroke-width="2" transform="rotate(-30 55 150)"/>
+                        <circle cx="48" cy="115" r="12" fill="#4ecdc4" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Panah gerakan jempol ke kelingking -->
+                        <path d="M 60 130 Q 100 100 145 100" stroke="#ff4444" stroke-width="3" fill="none" stroke-dasharray="5,5" marker-end="url(#arrowred)"/>
+                        
+                        <defs>
+                            <marker id="arrowred" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#ff4444" />
+                            </marker>
+                        </defs>
+                        
+                        <!-- Label -->
+                        <text x="100" y="210" font-size="14" fill="#333" text-anchor="middle" font-weight="bold">JEMPOL → KELINGKING</text>
+                    </svg>
+                </div>
+                <div class="gesture-description">
+                    <h3>📝 Cara Melakukan:</h3>
+                    <ul>
+                        <li><span class="highlight">Jempol (biru)</span> mendekat ke <span class="highlight">Kelingking (merah)</span></li>
+                        <li>Jarak antara keduanya < 30 pixel</li>
+                        <li>Seperti gesture "OK" tapi pakai kelingking</li>
+                        <li>Jari lain tetap terbuka</li>
+                    </ul>
+                </div>
+                <div class="action-label">🖱️ AKSI: KLIK KIRI</div>
+            </div>
+            
+            <!-- GESTURE 2: SCROLL UP -->
+            <div class="gesture-card">
+                <div class="gesture-title">⬆️ GESTURE SCROLL UP</div>
+                <div class="gesture-visual">
+                    <svg width="200" height="220" viewBox="0 0 200 220">
+                        <!-- Telapak tangan -->
+                        <ellipse cx="100" cy="150" rx="50" ry="70" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Jari kelingking -->
+                        <rect x="145" y="90" width="15" height="80" rx="7" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        <circle cx="152" cy="85" r="10" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Jari manis -->
+                        <rect x="125" y="70" width="15" height="100" rx="7" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        <circle cx="132" cy="65" r="10" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Jari tengah -->
+                        <rect x="105" y="60" width="15" height="110" rx="7" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        <circle cx="112" cy="55" r="10" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Jari telunjuk (merah - target) -->
+                        <rect x="85" y="70" width="15" height="100" rx="7" fill="#ff6b6b" stroke="#333" stroke-width="2"/>
+                        <circle cx="92" cy="65" r="10" fill="#ff6b6b" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Jempol (biru - bergerak) -->
+                        <rect x="50" y="110" width="20" height="50" rx="10" fill="#4ecdc4" stroke="#333" stroke-width="2" transform="rotate(-20 60 135)"/>
+                        <circle cx="55" cy="105" r="12" fill="#4ecdc4" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Panah gerakan (DEKAT) -->
+                        <path d="M 68 120 L 85 85" stroke="#00ff00" stroke-width="4" fill="none" marker-end="url(#arrowgreen)"/>
+                        
+                        <defs>
+                            <marker id="arrowgreen" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#00ff00" />
+                            </marker>
+                        </defs>
+                        
+                        <!-- Label -->
+                        <text x="100" y="210" font-size="14" fill="#333" text-anchor="middle" font-weight="bold">JARAK < 50 pixel</text>
+                    </svg>
+                </div>
+                <div class="gesture-description">
+                    <h3>📝 Cara Melakukan:</h3>
+                    <ul>
+                        <li><span class="highlight">Jempol (biru)</span> DEKAT dengan <span class="highlight">Telunjuk (merah)</span></li>
+                        <li>Jarak < 50 pixel</li>
+                        <li>Seperti gesture "OK"</li>
+                        <li>Lingkaran kecil di webcam akan menjadi HIJAU</li>
+                    </ul>
+                </div>
+                <div class="action-label">⬆️ AKSI: SCROLL KE ATAS</div>
+            </div>
+            
+            <!-- GESTURE 3: SCROLL DOWN -->
+            <div class="gesture-card">
+                <div class="gesture-title">⬇️ GESTURE SCROLL DOWN</div>
+                <div class="gesture-visual">
+                    <svg width="200" height="220" viewBox="0 0 200 220">
+                        <!-- Telapak tangan -->
+                        <ellipse cx="100" cy="150" rx="50" ry="70" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Jari kelingking -->
+                        <rect x="145" y="90" width="15" height="80" rx="7" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        <circle cx="152" cy="85" r="10" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Jari manis -->
+                        <rect x="125" y="70" width="15" height="100" rx="7" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        <circle cx="132" cy="65" r="10" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Jari tengah -->
+                        <rect x="105" y="60" width="15" height="110" rx="7" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        <circle cx="112" cy="55" r="10" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Jari telunjuk (merah - target) -->
+                        <rect x="85" y="70" width="15" height="100" rx="7" fill="#ff6b6b" stroke="#333" stroke-width="2"/>
+                        <circle cx="92" cy="65" r="10" fill="#ff6b6b" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Jempol (biru - bergerak JAUH) -->
+                        <rect x="30" y="140" width="20" height="50" rx="10" fill="#4ecdc4" stroke="#333" stroke-width="2" transform="rotate(-50 40 165)"/>
+                        <circle cx="32" cy="135" r="12" fill="#4ecdc4" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Panah gerakan (JAUH) -->
+                        <line x1="45" y1="150" x2="80" y2="80" stroke="#ff0000" stroke-width="4" stroke-dasharray="5,5"/>
+                        
+                        <!-- Label jarak -->
+                        <text x="55" y="115" font-size="18" fill="#ff0000" font-weight="bold">JAUH!</text>
+                        
+                        <!-- Label -->
+                        <text x="100" y="210" font-size="14" fill="#333" text-anchor="middle" font-weight="bold">JARAK > 150 pixel</text>
+                    </svg>
+                </div>
+                <div class="gesture-description">
+                    <h3>📝 Cara Melakukan:</h3>
+                    <ul>
+                        <li><span class="highlight">Jempol (biru)</span> JAUH dari <span class="highlight">Telunjuk (merah)</span></li>
+                        <li>Jarak > 150 pixel</li>
+                        <li>Buka tangan lebar</li>
+                        <li>Lingkaran kecil di webcam akan menjadi MERAH</li>
+                    </ul>
+                </div>
+                <div class="action-label">⬇️ AKSI: SCROLL KE BAWAH</div>
+            </div>
+            
+            <!-- GESTURE 4: TOGGLE SCROLL (MENGEPAL) -->
+            <div class="gesture-card">
+                <div class="gesture-title">✊ GESTURE MENGEPAL</div>
+                <div class="gesture-visual">
+                    <svg width="200" height="220" viewBox="0 0 200 220">
+                        <!-- Kepalan tangan -->
+                        <ellipse cx="100" cy="120" rx="55" ry="60" fill="#ffd7a3" stroke="#333" stroke-width="3"/>
+                        
+                        <!-- Jari-jari yang ditekuk (garis-garis untuk menunjukkan lipatan) -->
+                        <rect x="85" y="80" width="30" height="20" rx="5" fill="#e0a877" stroke="#333" stroke-width="2"/>
+                        <rect x="88" y="100" width="24" height="15" rx="5" fill="#e0a877" stroke="#333" stroke-width="2"/>
+                        <rect x="92" y="115" width="16" height="10" rx="5" fill="#e0a877" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Jempol di samping -->
+                        <ellipse cx="65" cy="120" rx="15" ry="30" fill="#ffd7a3" stroke="#333" stroke-width="2" transform="rotate(-10 65 120)"/>
+                        
+                        <!-- Tanda X untuk jari yang TIDAK terlihat -->
+                        <text x="100" y="75" font-size="24" fill="#ff0000" text-anchor="middle" font-weight="bold">✗ ✗ ✗ ✗</text>
+                        <text x="100" y="95" font-size="12" fill="#ff0000" text-anchor="middle">Semua jari TERTUTUP</text>
+                        
+                        <!-- Panah melingkar (toggle) -->
+                        <path d="M 140 120 A 40 40 0 1 1 140 121" stroke="#4ecdc4" stroke-width="3" fill="none" marker-end="url(#arrowblue)"/>
+                        
+                        <defs>
+                            <marker id="arrowblue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#4ecdc4" />
+                            </marker>
+                        </defs>
+                        
+                        <!-- Label -->
+                        <text x="100" y="195" font-size="14" fill="#333" text-anchor="middle" font-weight="bold">SEMUA JARI TERTUTUP RAPAT</text>
+                        <text x="100" y="215" font-size="12" fill="#ff0000" text-anchor="middle" font-style="italic">(Seperti mau meninju!)</text>
+                    </svg>
+                </div>
+                <div class="gesture-description">
+                    <h3>📝 Cara Melakukan:</h3>
+                    <ul>
+                        <li><strong>KEPALKAN</strong> tangan seperti mau meninju ✊</li>
+                        <li><strong>SEMUA JARI</strong> harus ditekuk ke dalam</li>
+                        <li>Tidak ada jari yang menjulur keluar</li>
+                        <li>Tahan 1 detik</li>
+                    </ul>
+                </div>
+                <div class="action-label">🔄 AKSI: TOGGLE SCROLL ON/OFF</div>
+            </div>
+            
+            <!-- GESTURE 5: GERAK KURSOR -->
+            <div class="gesture-card">
+                <div class="gesture-title">👉 GERAK KURSOR</div>
+                <div class="gesture-visual">
+                    <svg width="200" height="220" viewBox="0 0 200 220">
+                        <!-- Telapak tangan -->
+                        <ellipse cx="100" cy="150" rx="50" ry="70" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Jari kelingking -->
+                        <rect x="145" y="90" width="15" height="80" rx="7" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        <circle cx="152" cy="85" r="10" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Jari manis -->
+                        <rect x="125" y="70" width="15" height="100" rx="7" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        <circle cx="132" cy="65" r="10" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Jari tengah -->
+                        <rect x="105" y="60" width="15" height="110" rx="7" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        <circle cx="112" cy="55" r="10" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Jari telunjuk (MERAH - yang ditrack) -->
+                        <rect x="85" y="40" width="15" height="130" rx="7" fill="#ff6b6b" stroke="#333" stroke-width="3"/>
+                        <circle cx="92" cy="35" r="12" fill="#ff6b6b" stroke="#333" stroke-width="3"/>
+                        
+                        <!-- Jempol -->
+                        <rect x="45" y="120" width="20" height="60" rx="10" fill="#ffd7a3" stroke="#333" stroke-width="2" transform="rotate(-30 55 150)"/>
+                        <circle cx="48" cy="115" r="12" fill="#ffd7a3" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Panah gerakan ke segala arah -->
+                        <path d="M 92 35 L 92 15" stroke="#4ecdc4" stroke-width="3" marker-end="url(#arrowblue2)"/>
+                        <path d="M 92 35 L 115 20" stroke="#4ecdc4" stroke-width="3" marker-end="url(#arrowblue2)"/>
+                        <path d="M 92 35 L 110 35" stroke="#4ecdc4" stroke-width="3" marker-end="url(#arrowblue2)"/>
+                        <path d="M 92 35 L 70 20" stroke="#4ecdc4" stroke-width="3" marker-end="url(#arrowblue2)"/>
+                        
+                        <defs>
+                            <marker id="arrowblue2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#4ecdc4" />
+                            </marker>
+                        </defs>
+                        
+                        <!-- Label -->
+                        <text x="100" y="210" font-size="14" fill="#333" text-anchor="middle" font-weight="bold">TELUNJUK DITRACK</text>
+                    </svg>
+                </div>
+                <div class="gesture-description">
+                    <h3>📝 Cara Melakukan:</h3>
+                    <ul>
+                        <li>Posisi tangan biasa (terbuka)</li>
+                        <li><span class="highlight">Telunjuk (merah)</span> ditrack posisinya</li>
+                        <li>Gerakkan tangan → kursor ikut bergerak</li>
+                        <li>Otomatis bekerja sepanjang waktu</li>
+                    </ul>
+                </div>
+                <div class="action-label">🖱️ AKSI: GERAK KURSOR</div>
+            </div>
+        </div>
+        
+        <!-- CATATAN PENTING -->
+        <div class="important-note">
+            <h2>⚠️ CATATAN PENTING UNTUK TESTING:</h2>
+            <ul>
+                <li><strong>Jarak optimal:</strong> 40-60 cm dari webcam</li>
+                <li><strong>Pencahayaan:</strong> Cukup terang (tidak terlalu gelap/terang)</li>
+                <li><strong>Latar belakang:</strong> Polos lebih baik (tembok, meja)</li>
+                <li><strong>Kecepatan gesture:</strong> Jangan terlalu cepat, beri jeda 1-2 detik</li>
+                <li><strong>Posisi tangan:</strong> Pastikan seluruh tangan terlihat di frame webcam</li>
+                <li><strong>Untuk testing KLIK:</strong> Scroll ON/OFF tidak masalah!</li>
+                <li><strong>Konfirmasi:</strong> Tekan Y (benar), N (salah), F (tidak terdeteksi)</li>
+            </ul>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px; color: white; font-size: 1.2em;">
+            <p>🎯 <strong>FOKUS TESTING SEKARANG: GESTURE KLIK (20x)</strong></p>
+            <p style="margin-top: 10px;">Jempol → Kelingking | Konfirmasi dengan Y/N/F</p>
+        </div>
+    </div>
+</body>
+</html>

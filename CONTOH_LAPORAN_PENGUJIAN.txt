@@ -1,0 +1,202 @@
+================================================================================
+LAPORAN PENGUJIAN SISTEM VIRTUAL MOUSE
+Implementasi Hand Tracking untuk Kontrol Mouse
+================================================================================
+
+Waktu Pengujian: 01 November 2025, 14:30:00
+Durasi: 15.25 menit
+
+HASIL PENGUJIAN PER GESTURE:
+--------------------------------------------------------------------------------
+
+SCROLL UP:
+  Total Deteksi       : 20
+  True Positive (TP)  : 18
+  False Positive (FP) : 1
+  False Negative (FN) : 2
+  Tingkat Akurasi     : 85.71%
+
+SCROLL DOWN:
+  Total Deteksi       : 20
+  True Positive (TP)  : 19
+  False Positive (FP) : 1
+  False Negative (FN) : 0
+  Tingkat Akurasi     : 95.00%
+
+CLICK:
+  Total Deteksi       : 20
+  True Positive (TP)  : 17
+  False Positive (FP) : 3
+  False Negative (FN) : 2
+  Tingkat Akurasi     : 77.27%
+
+TOGGLE SCROLL:
+  Total Deteksi       : 20
+  True Positive (TP)  : 19
+  False Positive (FP) : 1
+  False Negative (FN) : 1
+  Tingkat Akurasi     : 90.48%
+
+MOVE CURSOR:
+  Total Deteksi       : 60
+  True Positive (TP)  : 58
+  False Positive (FP) : 2
+  False Negative (FN) : 3
+  Tingkat Akurasi     : 92.06%
+
+================================================================================
+RINGKASAN KESELURUHAN:
+--------------------------------------------------------------------------------
+Total True Positive  : 131
+Total False Positive : 8
+Total False Negative : 8
+AKURASI SISTEM       : 89.12%
+================================================================================
+
+ANALISIS:
+--------------------------------------------------------------------------------
+Sistem memiliki performa BAIK dengan akurasi di atas 80%.
+
+Gesture dengan akurasi tertinggi:
+  - Scroll Down: 95.00%
+
+Gesture yang perlu ditingkatkan:
+  - Click: 77.27%
+
+================================================================================
+INTERPRETASI HASIL:
+================================================================================
+
+Berdasarkan hasil pengujian terhadap 140 gesture yang dilakukan selama
+15.25 menit, sistem virtual mouse menggunakan hand tracking mencapai
+akurasi keseluruhan sebesar 89.12%.
+
+ANALISIS PER GESTURE:
+
+1. SCROLL DOWN (95.00% - TERTINGGI)
+   Gesture scroll down menunjukkan performa terbaik dengan akurasi 95%.
+   Ini menunjukkan bahwa deteksi gerakan menjauhi (jempol-telunjuk jauh)
+   sangat stabil dan konsisten.
+   
+   Faktor keberhasilan:
+   • Jarak yang cukup jauh (>150 pixel) memberikan margin error yang baik
+   • Gerakan natural dan mudah dilakukan
+   • Threshold yang tepat
+   
+2. MOVE CURSOR (92.06%)
+   Pergerakan kursor juga menunjukkan akurasi tinggi (92.06%), 
+   mengindikasikan tracking posisi tangan yang responsif dan akurat.
+   
+3. TOGGLE SCROLL (90.48%)
+   Deteksi kepalan tangan untuk toggle scroll mencapai 90.48%,
+   menunjukkan gesture fist recognition yang baik.
+   
+4. SCROLL UP (85.71%)
+   Akurasi scroll up sedikit lebih rendah (85.71%) dibanding scroll down.
+   Ini mungkin karena gerakan mendekatkan jari (threshold <50) memerlukan
+   presisi lebih tinggi.
+   
+   Rekomendasi perbaikan:
+   • Pertimbangkan untuk menyesuaikan threshold
+   • Tambahkan smoothing untuk mengurangi false positive
+   
+5. CLICK (77.27% - TERENDAH)
+   Gesture klik menunjukkan akurasi terendah (77.27%), dengan 3 false
+   positive dan 2 false negative.
+   
+   Analisis masalah:
+   • False Positive: Terjadi saat jari tidak sengaja mendekat
+   • False Negative: Gesture tidak terdeteksi saat dilakukan terlalu cepat
+   
+   Rekomendasi perbaikan:
+   • Tambahkan validasi waktu (hold click untuk konfirmasi)
+   • Adjust threshold jarak jempol-kelingking
+   • Implementasi double-tap untuk mengurangi false positive
+
+METRIK TAMBAHAN:
+
+Precision = TP / (TP + FP)
+         = 131 / (131 + 8)
+         = 94.24%
+
+Recall = TP / (TP + FN)
+       = 131 / (131 + 8)
+       = 94.24%
+
+F1-Score = 2 × (Precision × Recall) / (Precision + Recall)
+         = 2 × (94.24 × 94.24) / (94.24 + 94.24)
+         = 94.24%
+
+DISTRIBUSI ERROR:
+
+False Positive (5.76%):
+• Paling banyak pada gesture Click (3 kasus)
+• Disebabkan oleh gerakan tidak disengaja
+• Dapat dikurangi dengan cooldown lebih panjang
+
+False Negative (5.76%):
+• Tersebar merata di berbagai gesture
+• Disebabkan oleh gerakan terlalu cepat atau pencahayaan kurang
+• Dapat dikurangi dengan threshold lebih fleksibel
+
+================================================================================
+KESIMPULAN:
+================================================================================
+
+Sistem virtual mouse menggunakan hand tracking yang telah diimplementasikan
+menunjukkan performa BAIK dengan akurasi keseluruhan 89.12%. Sistem dapat
+mendeteksi berbagai gesture dengan tingkat keberhasilan yang tinggi,
+terutama untuk gesture scroll down (95%) dan move cursor (92.06%).
+
+KELEBIHAN SISTEM:
+• Akurasi tinggi (>89%)
+• Responsif untuk gesture dasar
+• Tidak memerlukan hardware tambahan
+• Interface intuitif
+
+KETERBATASAN:
+• Akurasi gesture click relatif rendah (77.27%)
+• Sensitif terhadap kondisi pencahayaan
+• Memerlukan latar belakang yang relatif polos
+• Tergantung pada kualitas webcam
+
+REKOMENDASI PENGEMBANGAN:
+1. Tingkatkan akurasi gesture click dengan validasi tambahan
+2. Implementasi adaptive threshold based on lighting
+3. Tambahkan gesture training untuk kalibrasi personal
+4. Optimalkan performa dengan multi-threading
+5. Tambahkan fitur gesture custom
+
+================================================================================
+LAMPIRAN: KONDISI PENGUJIAN
+================================================================================
+
+HARDWARE:
+• Webcam: 720p, 30fps
+• RAM: 8GB
+• Processor: Intel Core i5
+
+SOFTWARE:
+• OS: Windows 10
+• Python: 3.9
+• OpenCV: 4.5.0
+• CVZone: 1.5.0
+
+LINGKUNGAN:
+• Pencahayaan: Indoor, lampu LED
+• Latar belakang: Tembok polos
+• Jarak kamera: ±40 cm
+• Posisi: Duduk di depan laptop
+
+================================================================================
+REFERENSI:
+================================================================================
+
+[1] MediaPipe Hands: On-device Real-time Hand Tracking
+[2] CVZone Hand Tracking Module Documentation
+[3] OpenCV Computer Vision Library
+[4] Human-Computer Interaction using Hand Gestures
+
+================================================================================
+                          AKHIR LAPORAN PENGUJIAN
+================================================================================

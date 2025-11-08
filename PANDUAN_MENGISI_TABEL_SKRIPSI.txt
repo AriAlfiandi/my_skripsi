@@ -1,0 +1,927 @@
+================================================================================
+        PANDUAN LENGKAP MENGISI TABEL PENGUJIAN SKRIPSI
+           Sistem Virtual Mouse dengan Hand Tracking
+================================================================================
+
+DAFTAR ISI:
+-----------
+4.2.1 Pengujian Jarak Operasional
+4.2.2 Pengujian Akurasi Gesture Recognition
+4.2.3 Pengujian Kondisi Lingkungan
+4.2.4 Pengujian Performa Sistem
+4.2.5 Pengujian User Experience
+4.2.6 Rangkuman Hasil Pengujian
+
+================================================================================
+FITUR-FITUR SISTEM YANG DIUJI
+================================================================================
+
+Gesture yang Tersedia di Program:
+1. ✓ Scroll Up (Jempol-Telunjuk Dekat < 50px)
+2. ✓ Scroll Down (Jempol-Telunjuk Jauh > 150px)
+3. ✓ Klik (Jempol-Kelingking Dekat < 30px)
+4. ✓ Toggle Scroll (Kepalan Tangan)
+5. ✓ Move Cursor (Jari Tengah)
+6. ✓ Exit Program (Kedua Tangan Terangkat 3 Detik)
+
+Kontrol Keyboard:
+- Y/N/F: Konfirmasi hasil deteksi
+- T: Toggle Scroll mode
+- W: Toggle ALL Gestures (Scroll + Klik)
+- S: Show statistics
+- R: Reset statistics
+- Q: Quit program
+
+================================================================================
+4.2.1 PENGUJIAN JARAK OPERASIONAL
+================================================================================
+
+TUJUAN:
+Mengetahui jarak optimal antara tangan dan webcam untuk deteksi gesture
+
+CARA PENGUJIAN:
+---------------
+
+STEP 1: Persiapan
+- Siapkan penggaris atau meteran
+- Jalankan program: python virtual_mouse_with_testing.py
+- Posisikan kamera di tempat yang tetap
+
+STEP 2: Pengujian di Berbagai Jarak
+Lakukan pengujian di jarak berbeda:
+
+A. JARAK 20 CM
+   1. Posisikan tangan 20cm dari kamera
+   2. Lakukan gesture klik 10 kali
+   3. Catat berapa kali berhasil terdeteksi
+   4. Catat response time (lihat di terminal)
+   5. Konfirmasi dengan tombol Y/N
+
+B. JARAK 40 CM (ulangi langkah A)
+C. JARAK 60 CM (ulangi langkah A)
+D. JARAK 80 CM (ulangi langkah A)
+E. JARAK 100 CM (ulangi langkah A)
+
+STEP 3: Hitung Success Rate
+Success Rate (%) = (Jumlah Berhasil / Total Percobaan) × 100
+
+Contoh:
+- 10 percobaan di jarak 40cm
+- 9 berhasil terdeteksi
+- 1 gagal
+- Success Rate = (9/10) × 100 = 90%
+
+CARA MENGISI TABEL:
+-------------------
+
+Tabel 4.1: Hasil Pengujian Jarak Operasional
+
++------------------+------------+---------------+--------------+----------------+
+| Jarak dari       | Jumlah Tes | Success Rate  | Response     | Keterangan     |
+| Kamera           |            | (%)           | Time (ms)    |                |
++------------------+------------+---------------+--------------+----------------+
+| 20 cm            | 10x        | 60%           | 45ms         | Terlalu dekat, |
+|                  |            |               |              | jari terpotong |
++------------------+------------+---------------+--------------+----------------+
+| 40 cm            | 10x        | 95%           | 35ms         | Jarak optimal  |
++------------------+------------+---------------+--------------+----------------+
+| 60 cm            | 10x        | 90%           | 40ms         | Jarak baik     |
++------------------+------------+---------------+--------------+----------------+
+| 80 cm            | 10x        | 70%           | 55ms         | Mulai kurang   |
+|                  |            |               |              | presisi        |
++------------------+------------+---------------+--------------+----------------+
+| 100 cm           | 10x        | 40%           | 80ms         | Terlalu jauh   |
++------------------+------------+---------------+--------------+----------------+
+
+TIPS:
+- Jarak 40-60cm biasanya paling optimal
+- Response time bisa dilihat di terminal saat testing
+- Lakukan minimal 10 kali per jarak untuk data yang valid
+
+================================================================================
+4.2.2 PENGUJIAN AKURASI GESTURE RECOGNITION
+================================================================================
+
+Ini adalah pengujian UTAMA yang paling detail!
+
+--------------------------------------------------------------------------------
+A. PENGUJIAN GESTURE KLIK (Jempol + Kelingking)
+--------------------------------------------------------------------------------
+
+CARA PENGUJIAN:
+
+STEP 1: Jalankan Program Testing
+python virtual_mouse_with_testing.py
+
+STEP 2: Uji di Berbagai Kondisi
+
+KONDISI 1: TANGAN KANAN (20 kali)
+----------------------------------
+1. Lakukan gesture klik dengan tangan kanan 20 kali
+2. Setiap kali sistem mendeteksi:
+   - Jika BENAR deteksi klik → Tekan Y (True Positive)
+   - Jika SALAH deteksi → Tekan N (False Positive)
+3. Jika gesture tidak terdeteksi:
+   - Tekan F, lalu pilih "3" (Click)
+4. Catat hasil akhir
+
+KONDISI 2: TANGAN KIRI (20 kali)
+---------------------------------
+Ulangi langkah seperti di atas dengan tangan kiri
+
+KONDISI 3: TANGAN BERGERAK (15 kali)
+-------------------------------------
+1. Lakukan gesture klik sambil tangan bergerak
+2. Konfirmasi setiap deteksi dengan Y/N
+3. Catat False Negative dengan F
+
+KONDISI 4: PENCAHAYAAN RENDAH (15 kali)
+----------------------------------------
+1. Redupkan lampu ruangan
+2. Lakukan gesture klik 15 kali
+3. Konfirmasi dengan Y/N/F
+
+STEP 3: Lihat Hasil
+Setelah selesai testing, tekan Q untuk melihat laporan
+Buka file: laporan_pengujian.txt
+
+STEP 4: Hitung Metrik
+Dari laporan, catat:
+- True Positive (TP)
+- False Positive (FP)
+- False Negative (FN)
+- Success Rate = (TP / (TP+FP+FN)) × 100%
+
+STEP 5: Response Time
+Response time bisa dilihat di terminal saat gesture terdeteksi
+Hitung rata-rata dari semua percobaan
+
+CARA MENGISI TABEL:
+-------------------
+
+Tabel 4.2: Hasil Pengujian Gesture Klik (Jempol + Kelingking)
+
++--------------------+--------+----------+-------+-------+-----------+--------------+
+| Kondisi Pengujian  | Jumlah | Success  | False | False | Response  | Keterangan   |
+|                    | Tes    | Rate (%) | Pos.  | Neg.  | Time (ms) |              |
+| Tangan Kanan       | 20x    | 85%      | 2     | 1     | 42ms      | Jarak optimal|
+|                    |        |          |       |       |           | 40-60cm      |
++--------------------+--------+----------+-------+-------+-----------+--------------+
+| Tangan Kiri        | 20x    | 80%      | 3     | 1     | 45ms      | Jarak optimal|
+|                    |        |          |       |       |           | 40-60cm      |
++--------------------+--------+----------+-------+-------+-----------+--------------+
+| Tangan Bergerak    | 15x    | 73%      | 2     | 2     | 58ms      | Movement     |
+|                    |        |          |       |       |           | stability    |
++--------------------+--------+----------+-------+-------+-----------+--------------+
+| Pencahayaan Rendah | 15x    | 67%      | 3     | 2     | 65ms      | <500 lux     |
++--------------------+--------+----------+-------+-------+-----------+--------------+
+
+CONTOH PERHITUNGAN (Tangan Kanan):
+- Total tes: 20x
+- True Positive: 17
+- False Positive: 2
+- False Negative: 1
+- Success Rate = (17 / (17+2+1)) × 100 = 85%
+
+--------------------------------------------------------------------------------
+B. PENGUJIAN GESTURE SCROLL (Jempol + Telunjuk)
+--------------------------------------------------------------------------------
+
+CARA PENGUJIAN:
+
+1. SCROLL UP (Jempol-Telunjuk DEKAT < 50px)
+   - Pastikan Scroll Mode ON (tekan T jika OFF)
+   - Lakukan 20 kali
+   - Konfirmasi dengan Y/N/F
+   - Pilih "1" jika False Negative
+   
+2. SCROLL DOWN (Jempol-Telunjuk JAUH > 150px)
+   - Pastikan Scroll Mode ON
+   - Lakukan 20 kali
+   - Konfirmasi dengan Y/N/F
+   - Pilih "2" jika False Negative
+
+UJI DI BERBAGAI KONDISI:
+- Kondisi 1: Tangan Kanan (20x scroll up + 20x scroll down)
+- Kondisi 2: Tangan Kiri (20x scroll up + 20x scroll down)
+- Kondisi 3: Gerakan Cepat (15x scroll up + 15x scroll down)
+- Kondisi 4: Pencahayaan Rendah (15x scroll up + 15x scroll down)
+
+CARA MENGISI TABEL:
+
+Tabel 4.3: Hasil Pengujian Gesture Scroll Up (Dekat)
+
++--------------------+--------+----------+-------+-------+-----------+--------------+
+| Kondisi Pengujian  | Jumlah | Success  | False | False | Response  | Keterangan   |
+|                    | Tes    | Rate (%) | Pos.  | Neg.  | Time (ms) |              |
++--------------------+--------+----------+-------+-------+-----------+--------------+
+| Tangan Kanan       | 20x    | 90%      | 1     | 1     | 38ms      | Threshold    |
+|                    |        |          |       |       |           | <50px        |
++--------------------+--------+----------+-------+-------+-----------+--------------+
+| Tangan Kiri        | 20x    | 88%      | 1     | 1     | 40ms      | Threshold    |
+|                    |        |          |       |       |           | <50px        |
++--------------------+--------+----------+-------+-------+-----------+--------------+
+| Gerakan Cepat      | 15x    | 80%      | 2     | 1     | 52ms      | Movement     |
+|                    |        |          |       |       |           | sensitivity  |
++--------------------+--------+----------+-------+-------+-----------+--------------+
+| Pencahayaan Rendah | 15x    | 75%      | 2     | 2     | 60ms      | <500 lux     |
++--------------------+--------+----------+-------+-------+-----------+--------------+
+
+Tabel 4.4: Hasil Pengujian Gesture Scroll Down (Jauh)
+
++--------------------+--------+----------+-------+-------+-----------+--------------+
+| Kondisi Pengujian  | Jumlah | Success  | False | False | Response  | Keterangan   |
+|                    | Tes    | Rate (%) | Pos.  | Neg.  | Time (ms) |              |
++--------------------+--------+----------+-------+-------+-----------+--------------+
+| Tangan Kanan       | 20x    | 92%      | 1     | 1     | 36ms      | Threshold    |
+|                    |        |          |       |       |           | >150px       |
++--------------------+--------+----------+-------+-------+-----------+--------------+
+| Tangan Kiri        | 20x    | 90%      | 1     | 1     | 38ms      | Threshold    |
+|                    |        |          |       |       |           | >150px       |
++--------------------+--------+----------+-------+-------+-----------+--------------+
+| Gerakan Cepat      | 15x    | 85%      | 1     | 1     | 48ms      | Good         |
+|                    |        |          |       |       |           | stability    |
++--------------------+--------+----------+-------+-------+-----------+--------------+
+| Pencahayaan Rendah | 15x    | 78%      | 2     | 1     | 58ms      | <500 lux     |
++--------------------+--------+----------+-------+-------+-----------+--------------+
+
+--------------------------------------------------------------------------------
+C. PENGUJIAN GESTURE TOGGLE SCROLL (Kepalan Tangan) ⭐ NEW!
+--------------------------------------------------------------------------------
+
+FITUR BARU: Gesture kepalan tangan untuk mengaktifkan/nonaktifkan scroll mode
+
+CARA PENGUJIAN:
+
+STEP 1: Uji Toggle Scroll
+1. Pastikan program berjalan
+2. Perhatikan indikator "Scroll: ON/OFF" di layar
+3. Lakukan gesture kepalan tangan (semua jari dekat ke pergelangan)
+4. Sistem akan toggle status scroll
+5. Konfirmasi dengan Y/N
+6. Jika tidak terdeteksi, tekan F lalu pilih "4"
+
+STEP 2: Uji di Berbagai Kondisi
+- Kondisi 1: Toggle 20 kali berturut-turut
+- Kondisi 2: Toggle dengan tangan kiri (20x)
+- Kondisi 3: Toggle cepat (15x)
+- Kondisi 4: Toggle dalam pencahayaan rendah (15x)
+
+CARA MENGISI TABEL:
+
+Tabel 4.5: Hasil Pengujian Gesture Toggle Scroll (Kepalan)
+
++--------------------+--------+----------+-------+-------+-----------+--------------+
+| Kondisi Pengujian  | Jumlah | Success  | False | False | Response  | Keterangan   |
+|                    | Tes    | Rate (%) | Pos.  | Neg.  | Time (ms) |              |
++--------------------+--------+----------+-------+-------+-----------+--------------+
+| Tangan Kanan       | 20x    | 88%      | 1     | 1     | 45ms      | Fist detect  |
+|                    |        |          |       |       |           | <40px        |
++--------------------+--------+----------+-------+-------+-----------+--------------+
+| Tangan Kiri        | 20x    | 85%      | 2     | 1     | 48ms      | Good         |
++--------------------+--------+----------+-------+-------+-----------+--------------+
+| Toggle Cepat       | 15x    | 78%      | 2     | 1     | 55ms      | Cooldown     |
+|                    |        |          |       |       |           | 0.5s         |
++--------------------+--------+----------+-------+-------+-----------+--------------+
+| Pencahayaan Rendah | 15x    | 72%      | 2     | 2     | 62ms      | <500 lux     |
++--------------------+--------+----------+-------+-------+-----------+--------------+
+
+CATATAN PENTING:
+- Deteksi kepalan: semua jari < 40px dari pergelangan
+- Cooldown 0.5 detik untuk menghindari spam
+- Alternatif: gunakan keyboard "T" untuk perbandingan
+
+--------------------------------------------------------------------------------
+D. PENGUJIAN GESTURE MOVE CURSOR (Jari Tengah) ⭐ NEW!
+--------------------------------------------------------------------------------
+
+FITUR: Kursor mengikuti posisi jari tengah (tracking kontinyu)
+
+CARA PENGUJIAN:
+
+STEP 1: Uji Responsivitas Kursor
+1. Gerakkan jari tengah ke 4 arah: atas, bawah, kiri, kanan
+2. Perhatikan kursor mengikuti gerakan
+3. Sistem auto-detect setiap 1 detik
+
+STEP 2: Uji Presisi
+1. Gerakkan jari tengah ke 9 titik layar (grid 3x3)
+2. Catat apakah kursor sampai di posisi yang tepat
+3. Ukur deviation (selisih posisi)
+
+STEP 3: Uji Smoothness (Kehalusan)
+1. Gerakkan jari tengah dengan pola lingkaran
+2. Amati apakah gerakan kursor halus atau patah-patah
+3. Lakukan 10 kali dengan kecepatan berbeda
+
+CARA MENGISI TABEL:
+
+Tabel 4.6: Hasil Pengujian Move Cursor (Jari Tengah)
+
++--------------------+----------+-------------+-----------+--------------+
+| Aspek Pengujian    | Jumlah   | Success     | Avg       | Keterangan   |
+|                    | Tes      | Rate (%)    | Deviation |              |
++--------------------+----------+-------------+-----------+--------------+
+| Responsivitas      | 60 detik | 95%         | -         | Auto-track   |
+|                    |          |             |           | per 1s       |
++--------------------+----------+-------------+-----------+--------------+
+| Presisi (9 titik)  | 9x       | 89%         | 12px      | Mapping      |
+|                    |          |             |           | akurat       |
++--------------------+----------+-------------+-----------+--------------+
+| Smoothness         | 10x      | 85%         | -         | Smooth       |
+| (Circular motion)  |          |             |           | tracking     |
++--------------------+----------+-------------+-----------+--------------+
+| Kecepatan Lambat   | 10x      | 92%         | 8px       | Very smooth  |
++--------------------+----------+-------------+-----------+--------------+
+| Kecepatan Normal   | 10x      | 88%         | 15px      | Good         |
++--------------------+----------+-------------+-----------+--------------+
+| Kecepatan Cepat    | 10x      | 75%         | 25px      | Slight lag   |
++--------------------+----------+-------------+-----------+--------------+
+
+CARA MENGUKUR DEVIATION:
+1. Tandai target di layar (misal: pojok kiri atas)
+2. Gerakkan jari tengah ke posisi yang seharusnya mengarah ke target
+3. Ukur jarak pixel antara kursor dan target
+4. Rata-ratakan dari semua percobaan
+
+--------------------------------------------------------------------------------
+E. PENGUJIAN EXIT GESTURE (Kedua Tangan Terangkat) ⭐ NEW!
+--------------------------------------------------------------------------------
+
+FITUR: Exit program dengan mengangkat kedua tangan selama 3 detik
+
+CARA PENGUJIAN:
+
+STEP 1: Uji Exit Normal
+1. Angkat KEDUA tangan dengan semua jari terbuka
+2. Pastikan "Hands: 2" muncul di layar
+3. Tahan posisi selama 3 detik
+4. Sistem akan otomatis exit dan save laporan
+5. Lakukan 10 kali (restart program setiap kali)
+
+STEP 2: Uji Exit dengan Variasi
+- Variasi 1: Exit dengan tangan di posisi berbeda (10x)
+- Variasi 2: Exit sambil tangan bergerak sedikit (10x)
+- Variasi 3: Exit dalam pencahayaan berbeda (10x)
+
+STEP 3: Uji False Trigger
+1. Angkat kedua tangan < 3 detik lalu turunkan
+2. Pastikan sistem TIDAK exit
+3. Lakukan 15 kali untuk memastikan tidak ada false trigger
+
+CARA MENGISI TABEL:
+
+Tabel 4.7: Hasil Pengujian Exit Gesture (Kedua Tangan Terangkat)
+
++--------------------+--------+----------+-------+-------+--------------+
+| Kondisi Pengujian  | Jumlah | Success  | False | False | Keterangan   |
+|                    | Tes    | Rate (%) | Pos.  | Neg.  |              |
++--------------------+--------+----------+-------+-------+--------------+
+| Exit Normal        | 10x    | 95%      | 0     | 0     | 3 sec hold   |
++--------------------+--------+----------+-------+-------+--------------+
+| Posisi Berbeda     | 10x    | 90%      | 0     | 1     | Stable       |
++--------------------+--------+----------+-------+-------+--------------+
+| Sedikit Bergerak   | 10x    | 85%      | 0     | 1     | Motion       |
+|                    |        |          |       |       | tolerance    |
++--------------------+--------+----------+-------+-------+--------------+
+| Pencahayaan Rendah | 10x    | 80%      | 0     | 2     | <500 lux     |
++--------------------+--------+----------+-------+-------+--------------+
+| False Trigger Test | 15x    | 100%     | 0     | 0     | No false     |
+| (<3 detik)         |        |          |       |       | trigger      |
++--------------------+--------+----------+-------+-------+--------------+
+
+CATATAN:
+- Exit gesture memerlukan KEDUA tangan terdeteksi
+- Tahan STABIL selama 3 detik penuh
+- Semua jari harus di atas pergelangan tangan
+- Alternatif: tekan Q untuk quick exit
+
+================================================================================
+4.2.3 PENGUJIAN KONDISI LINGKUNGAN
+================================================================================
+
+TUJUAN:
+Mengetahui pengaruh kondisi lingkungan terhadap akurasi sistem
+
+--------------------------------------------------------------------------------
+A. PENGUJIAN PENCAHAYAAN
+--------------------------------------------------------------------------------
+
+CARA PENGUJIAN:
+
+STEP 1: Siapkan Lux Meter
+Gunakan lux meter atau aplikasi smartphone untuk mengukur intensitas cahaya
+
+STEP 2: Uji di 4 Tingkat Pencahayaan
+
+LEVEL 1: GELAP (<200 lux)
+- Matikan lampu, hanya cahaya minim
+- Lakukan 20 gesture campuran (5 scroll up, 5 scroll down, 5 klik, 5 toggle)
+- Catat akurasi
+
+LEVEL 2: REDUP (200-400 lux)
+- Lampu redup
+- Lakukan 20 gesture campuran
+- Catat akurasi
+
+LEVEL 3: NORMAL (400-800 lux)
+- Pencahayaan ruangan normal
+- Lakukan 20 gesture campuran
+- Catat akurasi
+
+LEVEL 4: TERANG (>800 lux)
+- Cahaya sangat terang atau siang hari
+- Lakukan 20 gesture campuran
+- Catat akurasi
+
+CARA MENGISI TABEL:
+
+Tabel 4.8: Hasil Pengujian Pengaruh Pencahayaan
+
++--------------------+-------------+----------+-----------+--------------+
+| Tingkat            | Intensitas  | Success  | Response  | Keterangan   |
+| Pencahayaan        | Cahaya      | Rate (%) | Time (ms) |              |
++--------------------+-------------+----------+-----------+--------------+
+| Gelap              | <200 lux    | 65%      | 85ms      | Sulit deteksi|
++--------------------+-------------+----------+-----------+--------------+
+| Redup              | 200-400 lux | 78%      | 58ms      | Cukup baik   |
++--------------------+-------------+----------+-----------+--------------+
+| Normal             | 400-800 lux | 92%      | 42ms      | Optimal      |
++--------------------+-------------+----------+-----------+--------------+
+| Terang             | >800 lux    | 88%      | 48ms      | Slight       |
+|                    |             |          |           | overexposure |
++--------------------+-------------+----------+-----------+--------------+
+
+ANALISIS:
+- Pencahayaan optimal: 400-800 lux
+- Di bawah 200 lux: akurasi turun signifikan
+- Di atas 800 lux: sedikit overexposure tapi masih baik
+
+--------------------------------------------------------------------------------
+B. PENGUJIAN LATAR BELAKANG
+--------------------------------------------------------------------------------
+
+CARA PENGUJIAN:
+
+Uji sistem dengan 3 jenis latar belakang berbeda:
+
+BACKGROUND 1: POLOS (Dinding Putih)
+- 20 gesture campuran
+- Catat akurasi
+
+BACKGROUND 2: KOMPLEKS (Rak Buku, Poster)
+- 20 gesture campuran
+- Catat akurasi
+
+BACKGROUND 3: DINAMIS (Orang Bergerak)
+- 20 gesture campuran
+- Catat akurasi
+
+CARA MENGISI TABEL:
+
+Tabel 4.9: Hasil Pengujian Pengaruh Latar Belakang
+
++--------------------+--------+----------+-----------+--------------+
+| Jenis Latar        | Jumlah | Success  | Response  | Keterangan   |
+| Belakang           | Tes    | Rate (%) | Time (ms) |              |
++--------------------+--------+----------+-----------+--------------+
+| Polos (Dinding)    | 20x    | 95%      | 38ms      | Ideal        |
++--------------------+--------+----------+-----------+--------------+
+| Kompleks (Rak)     | 20x    | 85%      | 48ms      | Good         |
++--------------------+--------+----------+-----------+--------------+
+| Dinamis (Gerak)    | 20x    | 72%      | 65ms      | Distraction  |
++--------------------+--------+----------+-----------+--------------+
+
+================================================================================
+4.2.4 PENGUJIAN PERFORMA SISTEM
+================================================================================
+
+TUJUAN:
+Mengukur resource usage dan frame rate sistem
+
+CARA PENGUJIAN:
+---------------
+
+STEP 1: Monitor Resource Usage
+Gunakan Task Manager (Windows) atau System Monitor (Linux/Mac)
+
+STEP 2: Catat Metrik Selama 5 Menit
+Jalankan program dan gunakan secara normal selama 5 menit:
+- CPU Usage (%)
+- Memory Usage (MB)
+- Frame Rate (FPS)
+- Detection Latency (ms)
+
+STEP 3: Uji dalam 3 Kondisi
+
+KONDISI 1: IDLE (Tangan Tidak Bergerak)
+- Monitor selama 5 menit
+- Catat resource usage
+
+KONDISI 2: NORMAL USE (Penggunaan Normal)
+- Gerakkan tangan, lakukan gesture
+- Monitor selama 5 menit
+
+KONDISI 3: INTENSIVE USE (Penggunaan Intensif)
+- Banyak gesture berturut-turut
+- Monitor selama 5 menit
+
+CARA MENGISI TABEL:
+
+Tabel 4.10: Hasil Pengujian Performa Sistem
+
++--------------------+-----------+-------------+------------+----------------+
+| Kondisi            | CPU Usage | Memory      | Frame Rate | Detection      |
+| Penggunaan         | (%)       | Usage (MB)  | (FPS)      | Latency (ms)   |
++--------------------+-----------+-------------+------------+----------------+
+| Idle               | 15%       | 220 MB      | 30 FPS     | 25ms           |
++--------------------+-----------+-------------+------------+----------------+
+| Normal Use         | 35%       | 280 MB      | 28 FPS     | 35ms           |
++--------------------+-----------+-------------+------------+----------------+
+| Intensive Use      | 48%       | 310 MB      | 25 FPS     | 48ms           |
++--------------------+-----------+-------------+------------+----------------+
+
+Tabel 4.11: Perbandingan dengan Target Performa
+
++--------------------+------------------+----------+--------------+
+| Metrik Performa    | Hasil Aktual     | Target   | Status       |
++--------------------+------------------+----------+--------------+
+| CPU Usage (Avg)    | 35%              | <50%     | ✓ Tercapai   |
++--------------------+------------------+----------+--------------+
+| Memory Usage (Avg) | 280 MB           | <500 MB  | ✓ Tercapai   |
++--------------------+------------------+----------+--------------+
+| Frame Rate (Avg)   | 28 FPS           | >20 FPS  | ✓ Tercapai   |
++--------------------+------------------+----------+--------------+
+| Detection Latency  | 35ms             | <100ms   | ✓ Tercapai   |
++--------------------+------------------+----------+--------------+
+
+CARA MONITORING:
+
+Windows:
+- Buka Task Manager (Ctrl+Shift+Esc)
+- Cari Python di tab Processes
+- Catat CPU dan Memory usage
+
+Linux/Mac:
+- Gunakan 'top' atau 'htop' di terminal
+- Filter proses Python
+- Catat resource usage
+
+Frame Rate:
+- Response Time: Sudah otomatis di program testing
+- Detection Latency: Waktu dari gesture sampai terdeteksi
+
+================================================================================
+4.2.5 PENGUJIAN USER EXPERIENCE
+================================================================================
+
+TUJUAN:
+Mengetahui pengalaman pengguna dalam menggunakan sistem
+
+--------------------------------------------------------------------------------
+CARA PENGUJIAN:
+--------------------------------------------------------------------------------
+
+STEP 1: Rekrut Responden
+- Minimal 5-10 orang
+- Beragam (pemula & berpengalaman dengan teknologi)
+
+STEP 2: Buat Skenario Tugas
+Minta responden melakukan:
+1. Membuka browser dengan gesture
+2. Scroll halaman web
+3. Klik link/tombol
+4. Toggle scroll mode (gesture kepalan)
+5. Exit program (kedua tangan terangkat)
+
+STEP 3: Catat Waktu & Kesalahan
+- Waktu menyelesaikan tugas
+- Jumlah error
+- Jumlah percobaan ulang
+
+STEP 4: Kuesioner (Skala 1-5)
+
+Buat kuesioner dengan pertanyaan:
+
+1. Kemudahan Penggunaan
+   "Seberapa mudah menggunakan virtual mouse ini?"
+   1 = Sangat Sulit, 5 = Sangat Mudah
+
+2. Kenyamanan
+   "Seberapa nyaman menggunakan gesture tangan?"
+   1 = Tidak Nyaman, 5 = Sangat Nyaman
+
+3. Responsivitas
+   "Seberapa responsif sistem merespons gesture?"
+   1 = Sangat Lambat, 5 = Sangat Cepat
+
+4. Akurasi
+   "Seberapa akurat sistem mengenali gesture?"
+   1 = Tidak Akurat, 5 = Sangat Akurat
+
+5. Intuitif Gesture
+   "Seberapa intuitif gesture yang digunakan?"
+   1 = Tidak Intuitif, 5 = Sangat Intuitif
+
+6. Kepuasan Keseluruhan
+   "Secara keseluruhan, seberapa puas dengan sistem ini?"
+   1 = Tidak Puas, 5 = Sangat Puas
+
+STEP 5: Hitung Rata-rata
+Hitung rata-rata skor dari semua responden
+
+CARA MENGISI TABEL:
+
+Tabel 4.12: Hasil Pengujian User Experience (10 Responden)
+
++---------------------------+----------------+------------+--------------+
+| Aspek Penilaian           | Rata-rata Skor | Target     | Keterangan   |
+|                           | (Skala 1-5)    |            |              |
++---------------------------+----------------+------------+--------------+
+| Kemudahan Penggunaan      | 4.2            | >3.5       | Mudah        |
++---------------------------+----------------+------------+--------------+
+| Kenyamanan Gesture        | 3.8            | >3.5       | Nyaman       |
++---------------------------+----------------+------------+--------------+
+| Responsivitas Sistem      | 4.0            | >3.5       | Responsif    |
++---------------------------+----------------+------------+--------------+
+| Akurasi Deteksi           | 3.9            | >3.5       | Akurat       |
++---------------------------+----------------+------------+--------------+
+| Intuitif Gesture          | 4.1            | >3.5       | Intuitif     |
++---------------------------+----------------+------------+--------------+
+| Kepuasan Keseluruhan      | 4.1            | >3.5       | Puas         |
++---------------------------+----------------+------------+--------------+
+
+Tabel 4.13: Hasil Pengujian Efisiensi Tugas
+
++---------------------------+----------------+-----------+--------------+
+| Jenis Tugas               | Waktu Rata-rata| Tingkat   | Keterangan   |
+|                           | (detik)        | Kesalahan |              |
++---------------------------+----------------+-----------+--------------+
+| Membuka Aplikasi          | 8.5 detik      | 15%       | Cepat        |
++---------------------------+----------------+-----------+--------------+
+| Scroll Halaman Web        | 12.3 detik     | 10%       | Efisien      |
++---------------------------+----------------+-----------+--------------+
+| Klik Link/Tombol          | 6.8 detik      | 20%       | Perlu latihan|
++---------------------------+----------------+-----------+--------------+
+| Toggle Scroll Mode        | 5.2 detik      | 12%       | Good         |
++---------------------------+----------------+-----------+--------------+
+| Exit Program (2 Tangan)   | 4.5 detik      | 5%        | Sangat mudah |
++---------------------------+----------------+-----------+--------------+
+
+CONTOH PERHITUNGAN:
+Responden 1-10 memberikan skor kemudahan: 5,4,4,5,3,4,5,4,4,4
+Rata-rata = (5+4+4+5+3+4+5+4+4+4) / 10 = 4.2
+
+================================================================================
+4.2.6 RANGKUMAN HASIL PENGUJIAN
+================================================================================
+
+Tabel 4.14: Rangkuman Keseluruhan Hasil Pengujian
+
++---------------------------+------------------+----------+--------------+
+| Jenis Pengujian           | Hasil Utama      | Target   | Status       |
++---------------------------+------------------+----------+--------------+
+| Jarak Operasional         | 40-60 cm optimal | 30-70 cm | ✓ Tercapai   |
++---------------------------+------------------+----------+--------------+
+| Akurasi Gesture Klik      | 85% rata-rata    | >80%     | ✓ Tercapai   |
++---------------------------+------------------+----------+--------------+
+| Akurasi Gesture Scroll    | 90% rata-rata    | >80%     | ✓ Tercapai   |
++---------------------------+------------------+----------+--------------+
+| Akurasi Toggle Scroll     | 85% rata-rata    | >75%     | ✓ Tercapai   |
++---------------------------+------------------+----------+--------------+
+| Akurasi Move Cursor       | 88% rata-rata    | >80%     | ✓ Tercapai   |
++---------------------------+------------------+----------+--------------+
+| Akurasi Exit Gesture      | 90% rata-rata    | >85%     | ✓ Tercapai   |
++---------------------------+------------------+----------+--------------+
+| Pencahayaan Optimal       | 400-800 lux      | >300 lux | ✓ Tercapai   |
++---------------------------+------------------+----------+--------------+
+| Frame Rate                | 28 FPS           | >20 FPS  | ✓ Tercapai   |
++---------------------------+------------------+----------+--------------+
+| CPU Usage                 | 35%              | <50%     | ✓ Tercapai   |
++---------------------------+------------------+----------+--------------+
+| Memory Usage              | 280 MB           | <500 MB  | ✓ Tercapai   |
++---------------------------+------------------+----------+--------------+
+| User Satisfaction         | 4.1/5.0          | >3.5     | ✓ Tercapai   |
++---------------------------+------------------+----------+--------------+
+
+Tabel 4.15: Perbandingan Akurasi Antar Gesture
+
++--------------------+----------+----------+----------+
+| Jenis Gesture      | Akurasi  | Kategori | Ranking  |
++--------------------+----------+----------+----------+
+| Scroll Down        | 92%      | Excellent| #1       |
++--------------------+----------+----------+----------+
+| Scroll Up          | 90%      | Excellent| #2       |
++--------------------+----------+----------+----------+
+| Exit (2 Tangan)    | 90%      | Excellent| #2       |
++--------------------+----------+----------+----------+
+| Move Cursor        | 88%      | Good     | #4       |
++--------------------+----------+----------+----------+
+| Toggle Scroll      | 85%      | Good     | #5       |
++--------------------+----------+----------+----------+
+| Klik               | 85%      | Good     | #5       |
++--------------------+----------+----------+----------+
+
+================================================================================
+CHECKLIST PENGUJIAN
+================================================================================
+
+Pastikan Anda sudah melakukan semua pengujian:
+
+□ 4.2.1 Pengujian Jarak Operasional
+  □ Uji 5 jarak berbeda (20, 40, 60, 80, 100 cm)
+  □ Minimal 10 percobaan per jarak
+  
+□ 4.2.2 Pengujian Akurasi Gesture
+  □ Gesture Klik - 4 kondisi (70 total)
+  □ Gesture Scroll Up - 4 kondisi (70 total)
+  □ Gesture Scroll Down - 4 kondisi (70 total)
+  □ Gesture Toggle Scroll - 4 kondisi (70 total) ⭐ NEW
+  □ Gesture Move Cursor - tracking test ⭐ NEW
+  □ Gesture Exit - 5 kondisi (55 total) ⭐ NEW
+  □ Total minimal 405 gesture
+  
+□ 4.2.3 Pengujian Kondisi Lingkungan
+  □ 4 tingkat pencahayaan
+  □ 3 jenis latar belakang
+  
+□ 4.2.4 Pengujian Performa
+  □ Monitor FPS, CPU, Memory
+  □ Jalankan minimal 5 menit per kondisi
+  
+□ 4.2.5 Pengujian User Experience
+  □ Minimal 5-10 responden
+  □ Kuesioner lengkap (6 aspek)
+  □ 5 skenario tugas
+
+================================================================================
+TIPS PENTING
+================================================================================
+
+1. DOKUMENTASI
+   - Screenshot setiap tahap pengujian
+   - Rekam video saat testing (terutama exit gesture)
+   - Simpan semua file laporan (JSON dan TXT)
+   - Foto kondisi lingkungan pengujian
+
+2. KONSISTENSI
+   - Gunakan kondisi yang sama untuk setiap pengujian
+   - Catat kondisi lingkungan (suhu, cahaya, dll)
+   - Gunakan hardware yang sama
+   - Gunakan tangan yang sama (konsisten kanan/kiri)
+
+3. VALIDITAS DATA
+   - Minimal 10 percobaan per kondisi
+   - Untuk data statistik kuat: 20-30 percobaan
+   - Ulangi jika hasil tidak konsisten
+   - Catat semua anomali dan kondisi khusus
+
+4. ANALISIS
+   - Bandingkan dengan target yang ditetapkan
+   - Identifikasi pola kesalahan (kapan sering FP/FN)
+   - Berikan rekomendasi perbaikan yang konkret
+   - Diskusikan limitasi sistem
+
+5. PRESENTASI DATA
+   - Gunakan chart dari analisis_hasil_pengujian.py
+   - Tambahkan grafik untuk setiap tabel
+   - Buat interpretasi untuk setiap hasil
+   - Jelaskan implikasi praktis dari temuan
+
+6. GESTURE KHUSUS (BARU)
+   - Toggle Scroll: pastikan kepalan cukup erat
+   - Move Cursor: gunakan jari tengah sebagai pointer
+   - Exit: HARUS kedua tangan, tahan 3 detik stabil
+   - Keyboard W: untuk disable semua gesture saat istirahat
+
+7. TROUBLESHOOTING
+   - Exit tidak jalan? Pastikan kedua tangan terdeteksi
+   - Scroll tidak jalan? Cek status "Scroll: ON/OFF"
+   - Gesture tidak terdeteksi? Cek cooldown 0.5 detik
+   - Terlalu banyak FP? Tingkatkan cooldown atau threshold
+
+================================================================================
+STRUKTUR LAPORAN BAB IV (Saran)
+================================================================================
+
+BAB IV - HASIL DAN PEMBAHASAN
+
+4.1 Hasil Implementasi Sistem
+    4.1.1 Antarmuka Sistem
+    4.1.2 Fitur-Fitur yang Diimplementasikan
+          - Gesture Klik (Jempol + Kelingking)
+          - Gesture Scroll Up/Down (Jempol + Telunjuk)
+          - Gesture Toggle Scroll (Kepalan Tangan)
+          - Gesture Move Cursor (Jari Tengah)
+          - Gesture Exit (Kedua Tangan Terangkat)
+    4.1.3 Kontrol Keyboard Pendukung
+
+4.2 Hasil Pengujian
+    4.2.1 Pengujian Jarak Operasional (Tabel 4.1)
+    4.2.2 Pengujian Akurasi Gesture Recognition
+          - Gesture Klik (Tabel 4.2)
+          - Gesture Scroll Up (Tabel 4.3)
+          - Gesture Scroll Down (Tabel 4.4)
+          - Gesture Toggle Scroll (Tabel 4.5) ⭐
+          - Gesture Move Cursor (Tabel 4.6) ⭐
+          - Gesture Exit (Tabel 4.7) ⭐
+    4.2.3 Pengujian Kondisi Lingkungan
+          - Pengaruh Pencahayaan (Tabel 4.8)
+          - Pengaruh Latar Belakang (Tabel 4.9)
+    4.2.4 Pengujian Performa Sistem
+          - Resource Usage (Tabel 4.10)
+          - Perbandingan Target (Tabel 4.11)
+    4.2.5 Pengujian User Experience
+          - UX Score (Tabel 4.12)
+          - Efisiensi Tugas (Tabel 4.13)
+    4.2.6 Rangkuman Hasil Pengujian
+          - Rangkuman Keseluruhan (Tabel 4.14)
+          - Perbandingan Antar Gesture (Tabel 4.15)
+
+4.3 Pembahasan
+    4.3.1 Analisis Akurasi Gesture
+    4.3.2 Analisis Faktor Lingkungan
+    4.3.3 Analisis Performa Sistem
+    4.3.4 Analisis User Experience
+    4.3.5 Perbandingan dengan Penelitian Terkait
+
+4.4 Limitasi Sistem
+    4.4.1 Keterbatasan Hardware
+    4.4.2 Keterbatasan Algoritma
+    4.4.3 Kondisi Lingkungan
+    4.4.4 User Dependency
+
+================================================================================
+KESIMPULAN
+================================================================================
+
+Dengan mengikuti panduan ini, Anda akan memiliki:
+
+✓ Data pengujian yang lengkap dan valid
+✓ 15 tabel terisi dengan benar (ditambah 3 tabel baru)
+✓ Analisis yang mendalam untuk setiap aspek
+✓ Dokumentasi yang profesional dan komprehensif
+
+File-file output yang akan Anda dapatkan:
+1. laporan_pengujian.json - Data mentah
+2. laporan_pengujian.txt - Laporan lengkap
+3. chart_akurasi_per_gesture.png - Visualisasi (jika ada)
+4. chart_confusion_metrics.png - Metrik (jika ada)
+5. chart_distribusi_keseluruhan.png - Pie chart (jika ada)
+6. tabel_analisis.txt - Tabel untuk skripsi
+
+Semua file ini siap dimasukkan ke BAB IV skripsi Anda!
+
+================================================================================
+PERUBAHAN DARI VERSI SEBELUMNYA
+================================================================================
+
+⭐ FITUR BARU YANG DITAMBAHKAN:
+
+1. Pengujian Gesture Toggle Scroll (Kepalan Tangan)
+   - Tabel 4.5 dengan 4 kondisi pengujian
+   - Metrik: TP, FP, FN, Success Rate, Response Time
+
+2. Pengujian Gesture Move Cursor (Jari Tengah)
+   - Tabel 4.6 dengan 6 aspek pengujian
+   - Metrik: Responsivitas, Presisi, Smoothness
+
+3. Pengujian Exit Gesture (Kedua Tangan Terangkat)
+   - Tabel 4.7 dengan 5 kondisi pengujian
+   - Termasuk False Trigger Test
+
+4. Update pada UX Testing
+   - Tambah tugas "Toggle Scroll Mode"
+   - Tambah tugas "Exit Program"
+   - Tambah aspek "Intuitif Gesture"
+
+5. Rangkuman yang Lebih Lengkap
+   - Tabel 4.14: Semua gesture tercakup
+   - Tabel 4.15: Ranking akurasi antar gesture
+
+❌ FITUR YANG DIHAPUS/DIKOREKSI:
+
+1. Gesture Klik Kanan (Jempol + Jari Manis)
+   - TIDAK ADA di kode program
+   - Section B di versi lama dihapus
+   - Diganti dengan fokus ke fitur yang ada
+
+📝 PENYESUAIAN LAINNYA:
+
+1. Total gesture pengujian: 140 → 405 gesture
+2. Jumlah tabel: 9 → 15 tabel
+3. Checklist lebih detail dengan fitur baru
+4. Tips tambahan untuk gesture khusus
+5. Struktur BAB IV disesuaikan
+
+================================================================================
+SELAMAT MENGERJAKAN PENGUJIAN!
+Jika ada pertanyaan, jangan ragu untuk bertanya.
+
+Dokumentasi yang lengkap = Skripsi yang berkualitas!
+================================================================================
+
+VERSION: 2.0 - Updated with all features from code
+LAST UPDATE: November 2025
+CREATED BY: System Documentation
+================================================================================

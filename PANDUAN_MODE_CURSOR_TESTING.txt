@@ -1,0 +1,519 @@
+================================================================================
+PANDUAN MODE TESTING KONTROL KURSOR
+Virtual Mouse System - Cursor Control Testing Mode
+================================================================================
+
+🎯 FITUR BARU: MODE TESTING KONTROL KURSOR
+================================================================================
+
+Program sekarang punya MODE KHUSUS untuk menguji kontrol kursor secara detail!
+
+File: virtual_mouse_cursor_testing.py
+
+FITUR YANG DITAMBAHKAN:
+-----------------------
+✅ Mode Testing Kursor (toggle dengan 'C')
+✅ Presisi Test dengan 9 Target Points (grid 3x3)
+✅ Smoothness Test dengan Jitter Measurement
+✅ Speed Test (lambat, normal, cepat)
+✅ Laporan Khusus: laporan_kontrol_kursor.txt
+✅ Visualisasi Real-time (target points, cursor trail)
+
+================================================================================
+📊 JENIS PENGUJIAN KONTROL KURSOR
+================================================================================
+
+1. PRESISI (Precision Test)
+   - 9 titik target di layar (grid 3x3)
+   - Ukur deviation dari target
+   - Success rate jika deviation < 50px
+   - Output: Avg Deviation, Min, Max
+
+2. SMOOTHNESS (Kehalusan Tracking)
+   - Tracking pergerakan kursor
+   - Hitung jitter (variasi gerak)
+   - Smoothness score (0-100)
+   - Output: Jitter (px), Smoothness Score
+
+3. KECEPATAN (Speed Test)
+   - Test gerakan lambat
+   - Test gerakan normal
+   - Test gerakan cepat
+   - Output: Response time per kategori
+
+================================================================================
+🎮 CARA MENGGUNAKAN
+================================================================================
+
+STEP 1: JALANKAN PROGRAM
+-------------------------
+python virtual_mouse_cursor_testing.py
+
+STEP 2: AKTIFKAN MODE KURSOR
+-----------------------------
+Tekan 'C' untuk masuk ke Mode Testing Kursor
+
+Yang berubah:
+✓ 9 titik target muncul di layar
+✓ Info mode di layar: "MODE KURSOR: ON"
+✓ Real-time stats: Jitter, Smoothness, Presisi
+
+STEP 3: LAKUKAN PENGUJIAN
+--------------------------
+
+A. TEST PRESISI (9 Titik)
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+1. Mode Kursor: ON (tekan C)
+2. Lihat target points di layar (angka 1-9)
+3. Target aktif berwarna HIJAU
+4. Arahkan jari tengah ke target
+5. Tekan 'P' untuk record hit
+6. Ulangi untuk semua 9 target
+7. Lihat hasil di terminal
+
+Contoh Output Terminal:
+  🎯 Target 1/9: Deviasi 15.32px
+  🎯 Target 2/9: Deviasi 22.45px
+  ...
+  ✅ Test Presisi Selesai!
+     Avg Deviation: 18.75px
+     Success Rate: 88.89%
+
+B. TEST SMOOTHNESS
+~~~~~~~~~~~~~~~~~~
+1. Mode Kursor: ON
+2. Tekan 'M' untuk mulai tracking
+3. Gerakkan jari tengah membentuk pola (lingkaran/zigzag)
+4. Lihat cursor trail (garis kuning)
+5. Smoothness auto-tracked
+6. Lihat stats di layar: "Jitter: 5.2px | Smooth: 94.8"
+
+C. TEST KECEPATAN
+~~~~~~~~~~~~~~~~~
+1. Mode Kursor: ON
+2. Untuk gerakan LAMBAT:
+   - Tekan '1' (mulai timer)
+   - Gerakkan jari tengah perlahan
+   - Tekan '1' lagi (stop & record)
+   
+3. Untuk gerakan NORMAL:
+   - Tekan '2' (mulai timer)
+   - Gerakkan jari tengah normal
+   - Tekan '2' lagi (stop & record)
+   
+4. Untuk gerakan CEPAT:
+   - Tekan '3' (mulai timer)
+   - Gerakkan jari tengah cepat
+   - Tekan '3' lagi (stop & record)
+
+STEP 4: LIHAT STATISTIK
+------------------------
+Tekan 'S' untuk lihat statistik lengkap:
+
+STATISTIK KONTROL KURSOR:
+--------------------------------------------------------------------------------
+Presisi - Avg Deviation: 18.75px
+Presisi - Success Rate: 88.89%
+Smoothness - Jitter: 5.23px
+Smoothness - Score: 94.77/100
+
+STEP 5: KELUAR & SIMPAN
+------------------------
+Tekan 'Q' atau angkat 2 tangan
+
+File yang dihasilkan:
+✓ laporan_pengujian.txt (gesture biasa)
+✓ laporan_kontrol_kursor.txt ← BARU! (untuk tabel)
+
+================================================================================
+📄 FORMAT LAPORAN KONTROL KURSOR
+================================================================================
+
+File: laporan_kontrol_kursor.txt
+
+ISI:
+----
+
+================================================================================
+LAPORAN PENGUJIAN KONTROL KURSOR
+Sistem Virtual Mouse - Hand Tracking
+================================================================================
+
+Waktu Pengujian: 05 November 2025, 15:30:45
+
+================================================================================
+A. PENGUJIAN PRESISI (9 Titik Target)
+================================================================================
+
+Total Tes Presisi      : 9 titik
+Success Rate           : 88.89%
+Deviasi Rata-rata      : 18.75 px
+Deviasi Minimum        : 8.45 px
+Deviasi Maximum        : 32.15 px
+
+Kategori Presisi       : Good (Presisi Baik)
+
+Detail Per Target:
+--------------------------------------------------------------------------------
+  Target 1: (150, 120) → Kursor: (145, 125) → Deviasi: 15.32px
+  Target 2: (400, 120) → Kursor: (395, 118) → Deviasi: 8.45px
+  Target 3: (650, 120) → Kursor: (642, 135) → Deviasi: 18.76px
+  ...
+
+================================================================================
+B. PENGUJIAN SMOOTHNESS (Kehalusan Tracking)
+================================================================================
+
+Jitter (Variasi Gerak) : 5.23 px
+Smoothness Score       : 94.77/100
+Jumlah Sample          : 156
+
+Kategori Smoothness    : Excellent (Sangat Halus)
+
+================================================================================
+C. PENGUJIAN KECEPATAN TRACKING
+================================================================================
+
+LAMBAT:
+  Kecepatan Rata-rata  : 125.45 px/s
+  Waktu Rata-rata      : 1250.00 ms
+  Jumlah Tes           : 5
+
+NORMAL:
+  Kecepatan Rata-rata  : 345.67 px/s
+  Waktu Rata-rata      : 850.00 ms
+  Jumlah Tes           : 8
+
+CEPAT:
+  Kecepatan Rata-rata  : 678.90 px/s
+  Waktu Rata-rata      : 450.00 ms
+  Jumlah Tes           : 6
+
+================================================================================
+RANGKUMAN UNTUK TABEL SKRIPSI
+================================================================================
+
+TABEL 4.6: Hasil Pengujian Move Cursor (Jari Tengah)
+--------------------------------------------------------------------------------
+
+Aspek Responsivitas:
+  Jumlah Tes     : Auto-tracking (setiap detik)
+  Success Rate   : -
+
+Aspek Presisi (9 titik):
+  Jumlah Tes     : 9
+  Success Rate   : 88.89%
+  Avg Deviation  : 18.75 px
+
+Aspek Smoothness:
+  Jumlah Tes     : 156 samples
+  Score          : 94.77/100
+  Jitter         : 5.23 px
+
+Aspek Kecepatan:
+  Lambat: 1250.00 ms (125.45 px/s)
+  Normal: 850.00 ms (345.67 px/s)
+  Cepat: 450.00 ms (678.90 px/s)
+
+================================================================================
+FORMAT UNTUK TABEL SKRIPSI:
+--------------------------------------------------------------------------------
+
++--------------------+----------+-------------+-----------+--------------+
+| Aspek Pengujian    | Jumlah   | Success     | Avg       | Keterangan   |
+|                    | Tes      | Rate (%)    | Deviation |              |
++--------------------+----------+-------------+-----------+--------------+
+| Responsivitas      | Auto     | -           | -         | Auto-track   |
+|                    |          |             |           | per 1s       |
++--------------------+----------+-------------+-----------+--------------+
+| Presisi (9 titik)  | 9        | 88.89       | 18.75     | Good         |
++--------------------+----------+-------------+-----------+--------------+
+| Smoothness         | 156      | 94.77       | -         | Excellent    |
++--------------------+----------+-------------+-----------+--------------+
+| Kecepatan Lambat   | 5        | -           | -         | Smooth       |
++--------------------+----------+-------------+-----------+--------------+
+| Kecepatan Normal   | 8        | -           | -         | Good         |
++--------------------+----------+-------------+-----------+--------------+
+| Kecepatan Cepat    | 6        | -           | -         | Slight lag   |
++--------------------+----------+-------------+-----------+--------------+
+
+================================================================================
+📋 CARA MENGISI TABEL SKRIPSI
+================================================================================
+
+DARI LAPORAN KE TABEL:
+----------------------
+
+1. BUKA FILE: laporan_kontrol_kursor.txt
+
+2. CARI BAGIAN: "FORMAT UNTUK TABEL SKRIPSI"
+
+3. COPY DATA:
+   - Presisi - Jumlah Tes: 9
+   - Presisi - Success Rate: 88.89%
+   - Presisi - Avg Deviation: 18.75 px
+   - Smoothness - Score: 94.77/100
+   - Kecepatan Lambat/Normal/Cepat: sesuai data
+
+4. PASTE KE EXCEL/WORD
+
+TABEL DI SKRIPSI:
+-----------------
+
+Tabel 4.6: Hasil Pengujian Move Cursor (Jari Tengah)
+
++--------------------+----------+-------------+-----------+--------------+
+| Aspek Pengujian    | Jumlah   | Success     | Avg       | Keterangan   |
+|                    | Tes      | Rate (%)    | Deviation |              |
++--------------------+----------+-------------+-----------+--------------+
+| Responsivitas      | 60 detik | 95%         | -         | Auto-track   |
++--------------------+----------+-------------+-----------+--------------+
+| Presisi (9 titik)  | 9x       | 88.89%      | 18.75px   | Good         |
++--------------------+----------+-------------+-----------+--------------+
+| Smoothness         | 156x     | 94.77%      | -         | Excellent    |
++--------------------+----------+-------------+-----------+--------------+
+| Kecepatan Lambat   | 5x       | 92%         | 8px       | Very smooth  |
++--------------------+----------+-------------+-----------+--------------+
+| Kecepatan Normal   | 8x       | 88%         | 15px      | Good         |
++--------------------+----------+-------------+-----------+--------------+
+| Kecepatan Cepat    | 6x       | 75%         | 25px      | Slight lag   |
++--------------------+----------+-------------+-----------+--------------+
+
+================================================================================
+💡 TIPS MENDAPATKAN DATA TERBAIK
+================================================================================
+
+1. PRESISI TEST
+   ✓ Gerakkan jari tengah perlahan ke target
+   ✓ Tunggu posisi stabil di atas target
+   ✓ Baru tekan 'P' untuk record
+   ✓ Lakukan semua 9 target berurutan
+   ✓ Target akurasi: deviation < 20px
+
+2. SMOOTHNESS TEST
+   ✓ Gerakkan jari tengah membentuk pola halus
+   ✓ Kecepatan konstan (jangan tiba-tiba cepat/lambat)
+   ✓ Pola yang disarankan: lingkaran, zigzag, kotak
+   ✓ Lakukan minimal 30 detik untuk data akurat
+   ✓ Target jitter: < 10px
+
+3. SPEED TEST
+   ✓ Konsisten dalam setiap kategori kecepatan
+   ✓ Lambat: gerakan pelan dan terkontrol
+   ✓ Normal: gerakan natural seperti pakai mouse
+   ✓ Cepat: gerakan cepat tapi masih terkontrol
+   ✓ Lakukan minimal 5x per kategori
+
+4. KONDISI IDEAL
+   ✓ Pencahayaan: 400-800 lux
+   ✓ Jarak kamera: 40-60cm
+   ✓ Latar belakang: polos
+   ✓ Tangan: rileks dan stabil
+
+================================================================================
+🔍 INTERPRETASI HASIL
+================================================================================
+
+PRESISI (Avg Deviation):
+------------------------
+< 15px   : Excellent (Sangat Presisi) ⭐⭐⭐⭐⭐
+15-30px  : Good (Presisi Baik) ⭐⭐⭐⭐
+30-50px  : Fair (Cukup) ⭐⭐⭐
+50-75px  : Poor (Kurang) ⭐⭐
+> 75px   : Very Poor (Sangat Kurang) ⭐
+
+SMOOTHNESS (Score):
+-------------------
+90-100   : Excellent (Sangat Halus) ⭐⭐⭐⭐⭐
+75-90    : Good (Halus) ⭐⭐⭐⭐
+60-75    : Fair (Cukup) ⭐⭐⭐
+40-60    : Poor (Patah-patah) ⭐⭐
+< 40     : Very Poor (Sangat Patah) ⭐
+
+JITTER:
+-------
+< 5px    : Excellent (Sangat Stabil)
+5-10px   : Good (Stabil)
+10-20px  : Fair (Cukup Stabil)
+> 20px   : Poor (Tidak Stabil)
+
+KECEPATAN:
+----------
+Lambat   : > 1000ms (tracking halus, presisi tinggi)
+Normal   : 500-1000ms (balance speed & precision)
+Cepat    : < 500ms (speed tinggi, presisi menurun)
+
+================================================================================
+📊 SKENARIO PENGUJIAN LENGKAP
+================================================================================
+
+SKENARIO 1: Pengujian Presisi (9 Titik) - 5 menit
+--------------------------------------------------
+1. Jalankan program
+2. Tekan 'C' untuk mode kursor
+3. Warm-up 1 menit (gerakkan bebas)
+4. Test presisi:
+   - Arahkan ke target 1, tekan P
+   - Arahkan ke target 2, tekan P
+   - ... sampai target 9
+5. Lihat hasil di terminal
+6. Catat Avg Deviation
+7. Exit & backup laporan
+
+SKENARIO 2: Pengujian Smoothness - 3 menit
+-------------------------------------------
+1. Jalankan program
+2. Tekan 'C' untuk mode kursor
+3. Tekan 'M' untuk mulai tracking
+4. Gerakkan jari tengah:
+   - 30 detik pola lingkaran
+   - 30 detik pola zigzag
+   - 30 detik pola kotak
+5. Lihat stats di layar (Jitter, Smooth)
+6. Exit & backup laporan
+
+SKENARIO 3: Pengujian Kecepatan - 10 menit
+-------------------------------------------
+1. Jalankan program
+2. Tekan 'C' untuk mode kursor
+3. Test Lambat (5x):
+   - Tekan 1, gerak lambat, tekan 1
+   - Ulangi 5 kali
+4. Test Normal (8x):
+   - Tekan 2, gerak normal, tekan 2
+   - Ulangi 8 kali
+5. Test Cepat (6x):
+   - Tekan 3, gerak cepat, tekan 3
+   - Ulangi 6 kali
+6. Exit & backup laporan
+
+SKENARIO 4: Pengujian Komprehensif - 20 menit
+----------------------------------------------
+Gabungan semua test:
+1. Presisi 9 titik
+2. Smoothness 3 pola
+3. Kecepatan 3 kategori
+4. Ulangi dalam kondisi berbeda:
+   - Pencahayaan normal
+   - Pencahayaan rendah
+   - Jarak berbeda
+
+================================================================================
+⚠️ TROUBLESHOOTING
+================================================================================
+
+MASALAH: Target points tidak muncul
+SOLUSI: Tekan 'C' untuk aktifkan mode kursor
+
+MASALAH: Tekan P tidak record
+SOLUSI: Pastikan mode kursor ON dan tangan terdeteksi
+
+MASALAH: Deviation terlalu tinggi (>50px)
+SOLUSI: 
+  - Gerakkan lebih perlahan
+  - Tunggu posisi stabil
+  - Periksa pencahayaan
+  - Cek jarak kamera
+
+MASALAH: Smoothness score rendah (<60)
+SOLUSI:
+  - Gerakan lebih halus dan konstan
+  - Hindari gerakan tiba-tiba
+  - Periksa frame rate (harus >20 FPS)
+  - Tutup aplikasi lain
+
+MASALAH: Cursor trail tidak muncul
+SOLUSI: Itu fitur visual, tidak mempengaruhi data
+
+MASALAH: Speed test tidak terecord
+SOLUSI: Pastikan tekan tombol yang sama untuk start & stop
+
+================================================================================
+✅ CHECKLIST PENGUJIAN KONTROL KURSOR
+================================================================================
+
+SEBELUM TEST:
+☐ Program berjalan tanpa error
+☐ Mode kursor bisa diaktifkan (tekan C)
+☐ Target points muncul (9 titik)
+☐ Stats muncul di layar
+☐ Warming up 2-3 menit
+
+TEST PRESISI:
+☐ Semua 9 target sudah di-hit (tekan P)
+☐ Avg Deviation tercatat
+☐ Success Rate > 80%
+☐ Data tersimpan di laporan
+
+TEST SMOOTHNESS:
+☐ Minimal 30 detik tracking
+☐ 3 pola sudah dicoba
+☐ Jitter < 10px
+☐ Smoothness Score > 80
+
+TEST KECEPATAN:
+☐ Lambat: minimal 5x
+☐ Normal: minimal 8x
+☐ Cepat: minimal 6x
+☐ Data untuk semua kategori ada
+
+POST-TEST:
+☐ File laporan_kontrol_kursor.txt tersimpan
+☐ Data sudah dicatat ke Excel
+☐ Tabel skripsi sudah diisi
+☐ Backup file laporan
+
+================================================================================
+🎓 UNTUK SKRIPSI
+================================================================================
+
+DATA YANG TERSEDIA:
+-------------------
+✓ Avg Deviation (untuk kolom Deviation)
+✓ Success Rate (untuk kolom Success Rate)
+✓ Smoothness Score (untuk keterangan)
+✓ Jitter (untuk analisis)
+✓ Speed data (untuk tabel kecepatan)
+
+ANALISIS YANG BISA DIBUAT:
+---------------------------
+1. Korelasi presisi vs kecepatan
+2. Pengaruh pencahayaan terhadap smoothness
+3. Perbandingan jitter di kondisi berbeda
+4. Grafik deviation per target point
+5. Box plot smoothness score
+
+GRAFIK YANG DISARANKAN:
+-----------------------
+1. Bar chart: Avg Deviation per kondisi
+2. Line chart: Smoothness score over time
+3. Scatter plot: Speed vs Precision
+4. Heat map: 9 target points dengan deviation
+5. Box plot: Jitter distribution
+
+PEMBAHASAN:
+-----------
+"Pengujian kontrol kursor menunjukkan avg deviation 18.75px 
+(kategori 'Good'), dengan success rate 88.89%. Smoothness score 
+mencapai 94.77/100 (kategori 'Excellent') dengan jitter 5.23px. 
+Hasil ini menunjukkan sistem mampu melakukan tracking kursor 
+dengan presisi baik dan pergerakan yang sangat halus."
+
+================================================================================
+🎉 SELAMAT MENGUJI KONTROL KURSOR!
+================================================================================
+
+Sekarang Anda punya:
+✅ Mode testing khusus kontrol kursor
+✅ Data presisi dengan 9 target points
+✅ Data smoothness dengan jitter measurement
+✅ Data kecepatan tracking
+✅ Laporan lengkap untuk tabel skripsi
+
+SEMUA DATA UNTUK TABEL KONTROL KURSOR LENGKAP! 📊✨
+
+================================================================================
+VERSION: Enhanced with Cursor Testing Mode
+DATE: November 2025
+STATUS: READY FOR CURSOR CONTROL TESTING
+================================================================================
